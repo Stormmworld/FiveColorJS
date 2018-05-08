@@ -1,0 +1,10 @@
+.graveyard-image {
+    background-size: contain;
+    opacity: 0.4;
+    color:black;
+    background-repeat: no-repeat;
+    line-height: 143px;
+    width: 50%;
+    margin: 0 auto;
+    font-weight: bold !important;
+}

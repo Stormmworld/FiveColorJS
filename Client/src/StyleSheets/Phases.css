@@ -1,0 +1,27 @@
+.active-phase{
+    border-width: 1px;
+    border-style: solid;
+    border-color: yellow;
+    color:yellow;
+    background-color: mediumblue;
+}
+
+.inactive-phase{
+    border-width: 1px;
+    border-style: dotted;
+    border-color: black;
+    color:black;
+    background-color: white;    
+}
+
+.step-Complete-Button{
+    border-style: solid;
+    color:white;
+    background-color: purple;    
+}
+
+.Phase-Font{
+    font-size: 12px;
+    font-style: normal;
+
+}

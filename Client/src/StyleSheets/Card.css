@@ -1,0 +1,20 @@
+.Card{
+    opacity: 1;
+}
+
+.card-size{
+    height:139px !important;
+    width:100px !important;
+}
+
+.CardTapped {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.card-fade{
+    opacity:.5;
+}

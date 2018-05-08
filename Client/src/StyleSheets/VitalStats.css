@@ -1,0 +1,31 @@
+.name-container{
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 40px;
+}
+.right-Column{
+    text-align: left;
+    font-size: 15px;
+    padding-left: 5px !important;
+    line-height: 30px;
+}
+.left-Column{
+    font-weight: bold;
+    text-align: right;
+    font-size: 15px;
+    line-height: 30px;
+}
+.life-view{
+    color:white;
+    background-image: url('http://www.clker.com/cliparts/W/q/D/p/e/7/small-red-heart-with-transparent-background-md.png');
+    background-size: contain;
+    background-position-x: center;
+    background-repeat: no-repeat;
+    line-height: 35px !important;
+    min-width: 45px !important;
+    max-width: 45px !important;
+    min-height: 45px !important;
+    max-height: 45px !important;
+    font-size: 18px !important;
+    text-align: center !important;
+}

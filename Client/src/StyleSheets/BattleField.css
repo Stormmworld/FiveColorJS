@@ -1,0 +1,14 @@
+.battlefield-artifacts{
+    
+}
+.battlefield-enchantments{
+    
+}
+.battlefield-creatures{
+    
+}
+.battlefield-cointainer {
+    display: inline-flex;
+    height: 100%;
+    background-color: lightskyblue;
+}
