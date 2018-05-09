@@ -12,35 +12,35 @@ const waitingRoom =
   }
 
 io.on('connection', function (socket) {
-  Players.push({ Name: "Player " + (Players.length + 1), Socket: socket });
+  waitingRoom.Players.push({ Name: "Player " + (waitingRoom.Players.length + 1), Socket: socket });
 
   socket.on('disconnect', function () {
-    for (i = 0; i < Player.length; i++) {
-      if (Player[i].Socket === socket) {
-        Players.splice(i, 1);
+    for (i = 0; i < waitingRoom.Players.length; i++) {
+      if (waitingRoom.Players[i].Socket === socket) {
+        waitingRoom.Players.splice(i, 1);
         break;
       }
     }
   })
 
   socket.on('playerName', function (name) {
-    for (i = 0; i < Player.length; i++) {
-      if (Player[i].Socket === socket) {
-        Players[i].Name = name;
+    for (i = 0; i < waitingRoom.Players.length; i++) {
+      if (waitingRoom.Players[i].Socket === socket) {
+        waitingRoom.Players[i].Name = name;
         break;
       }
     }
   })
 
   socket.on('sendMessage', function (message) {
-    for (i = 0; i < Player.length; i++) {
-      if (Player[i].Socket === socket) {
-        Messages.push({Name: Player[i].Name, message});
+    for (i = 0; i < waitingRoom.Players.length; i++) {
+      if (waitingRoom.Players[i].Socket === socket) {
+        waitingRoom.Messages.push({Name: waitingRoom.Players[i].Name, Message: message});
         break;
       }
     }
     
-    io.emit('messages', Messages);
+    io.emit('messages', waitingRoom.Messages);
   })
 })
 

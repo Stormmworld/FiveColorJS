@@ -22,7 +22,7 @@ class WaitingRoom extends Component {
                     <button onClick={() => this.props.sendMessage(this.state.message)}>Send</button>
                     <Col className="edgeless" xs={12} sm={12} md={12} lg={12}>
                         {this.props.ChatMessages.map((message, index) => (
-                            <span style={{ display: 'block' }} key={index}> {message} </span>
+                            <span style={{ display: 'block' }} key={index}> {message.Name} : {message.Message} </span>
                         ))}
                     </Col>
                 </Col>

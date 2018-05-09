@@ -1,6 +1,6 @@
-import './Scripts/jquery.js';
-import './Scripts/jquery.signalr.js';
-import './Scripts/server.js';
+//import './Scripts/jquery.js';
+//import './Scripts/jquery.signalr.js';
+//import './Scripts/server.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

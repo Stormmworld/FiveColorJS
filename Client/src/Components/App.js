@@ -14,9 +14,13 @@ class App extends Component {
       ChatMessages: [],
     }
 
-    let self = this
     this.state.socket.on('messages', messages => {
-      this.setState(...self.state, {Messages: messages})
+      
+      
+      let chatMessages = [];
+      chatMessages.fill(messages);
+      
+      this.setState({ChatMessages: messages})
     });
   }
   
@@ -29,12 +33,15 @@ class App extends Component {
     this.state.socket.emit('playerName', playerName);
   }
 
-  onSendMessage = message => this.state.socket.emit('sendMessage', message);
+  onSendMessage(message){
+     this.state.socket.emit('sendMessage', message);
+  }
+
 
   render() {
     return (
       <div className="container-fluid edgeless" >
-        <WaitingRoom sendMessage={this.onSendMessage.bind(this)} ChatMessages={this.props.ChatMessages} />
+        <WaitingRoom sendMessage={this.onSendMessage.bind(this)} ChatMessages={this.state.ChatMessages} />
       </div>
     );
   }
