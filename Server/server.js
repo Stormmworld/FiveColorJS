@@ -9,10 +9,11 @@ const waitingRoom =
   function reset() {
     waitingRoom.Players = [];
     waitingRoom.Messages = [];  
+
   }
 
 io.on('connection', function (socket) {
-  waitingRoom.Players.push({ Name: "Player " + (waitingRoom.Players.length + 1), Socket: socket });
+  waitingRoom.Players.push({ Name: "Player " + (waitingRoom.Players.length + 1), Socket: socket, Status: "Lobby" });
 
   socket.on('disconnect', function () {
     for (i = 0; i < waitingRoom.Players.length; i++) {
@@ -21,6 +22,7 @@ io.on('connection', function (socket) {
         break;
       }
     }
+    sendChatRoomPlayers();
   })
 
   socket.on('playerName', function (name) {
@@ -30,12 +32,16 @@ io.on('connection', function (socket) {
         break;
       }
     }
+    sendChatRoomPlayers();
   })
 
   socket.on('sendMessage', function (message) {
+    let date = new Date();
+    let time = date.getHours().toString().padStart(2,"0") + ':'  + date.getMinutes().toString().padStart(2,"0") + ':' + date.getSeconds().toString().padStart(2,"0"); 
     for (i = 0; i < waitingRoom.Players.length; i++) {
       if (waitingRoom.Players[i].Socket === socket) {
-        waitingRoom.Messages.push({Name: waitingRoom.Players[i].Name, Message: message});
+        //waitingRoom.Messages.push({Name: waitingRoom.Players[i].Name, Message: message});
+        waitingRoom.Messages.splice(0,0,{Name: waitingRoom.Players[i].Name, Message: message, Time: time});
         break;
       }
     }
@@ -43,6 +49,16 @@ io.on('connection', function (socket) {
     io.emit('messages', waitingRoom.Messages);
   })
 })
+
+function sendChatRoomPlayers(){
+  let chatPlayers = [];
+  for (i = 0; i < waitingRoom.Players.length; i++) {
+    if(waitingRoom.Players[i].Status==="Lobby")
+    chatPlayers.push(waitingRoom.Players[i].Name);
+  }
+  io.emit('chatPlayers', chatPlayers);
+  io.emit('messages', waitingRoom.Messages);
+}
 
 
 reset()

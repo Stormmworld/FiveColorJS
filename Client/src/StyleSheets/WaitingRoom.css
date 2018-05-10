@@ -1,0 +1,19 @@
+.chatHeader{
+    height: 40px;
+    background-color: beige;
+}
+
+.chatSubmitButton{
+    height: 40px;
+    width: 10%;
+}
+
+.chatMessagebox{
+    height: 40px;
+    width: 90%;
+}
+
+.messageWindowContainer{
+    text-align: left;
+    background-color: blanchedalmond;
+}

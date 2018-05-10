@@ -12,16 +12,11 @@ class App extends Component {
       PlayerName: '',
       socket: openSocket('http://localhost:1337'),
       ChatMessages: [],
+      ChatPlayers:[],
     }
 
-    this.state.socket.on('messages', messages => {
-      
-      
-      let chatMessages = [];
-      chatMessages.fill(messages);
-      
-      this.setState({ChatMessages: messages})
-    });
+    this.state.socket.on('messages', messages => {this.setState({ChatMessages: messages})});    
+    this.state.socket.on('chatPlayers', players => {this.setState({ChatPlayers: players})});
   }
   
   componentDidMount() {
@@ -37,11 +32,10 @@ class App extends Component {
      this.state.socket.emit('sendMessage', message);
   }
 
-
   render() {
     return (
       <div className="container-fluid edgeless" >
-        <WaitingRoom sendMessage={this.onSendMessage.bind(this)} ChatMessages={this.state.ChatMessages} />
+        <WaitingRoom sendMessage={this.onSendMessage.bind(this)} ChatMessages={this.state.ChatMessages} ChatPlayers={this.state.ChatPlayers}/>
       </div>
     );
   }

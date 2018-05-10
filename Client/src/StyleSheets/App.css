@@ -17,3 +17,12 @@
     align-content: center;
     text-align: center;
 }
+
+.Left-content{
+    align-content: left;
+    text-align: left;
+}
+
+.scrollable{
+    overflow: auto;
+}
