@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap'
 import ListPlayer from './ListPlayer';
+import CreateGameModal from './CreateGameModal';
 import Mana from './Mana';
 import '../StyleSheets/WaitingRoom.css';
 
@@ -14,6 +15,7 @@ class WaitingRoom extends Component {
             MessageWindowHeight: 0,
             RightControlsHeight: 0,
             RightListHeight: 0,
+            showCreateGameModal: false
         }
     };
     componentWillMount() {
@@ -26,6 +28,17 @@ class WaitingRoom extends Component {
         window.removeEventListener("resize", this.updateHeights.bind(this));
     }
 
+    inputKeyUp(event) {
+        if (event.keyCode === 13) {
+            this.props.sendMessage(this.state.message);
+            this.setState({ message: '' })
+        }
+    }
+
+    onCreateGame(name, format, playerCount){
+
+    }
+
     updateHeights() {
         this.setState({
             ChatroomHeight: (window.innerHeight) + 'px',
@@ -33,13 +46,6 @@ class WaitingRoom extends Component {
             RightControlsHeight: ((window.innerHeight - 80) / 2) + 'px',
             RightListHeight: (((window.innerHeight - 80) / 2) - 40) + 'px',
         });
-    }
-
-    inputKeyUp(event) {
-        if (event.keyCode === 13) {
-            this.props.sendMessage(this.state.message);
-            this.setState({ message: '' })
-        }
     }
 
     render() {
