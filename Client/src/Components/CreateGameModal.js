@@ -23,7 +23,8 @@ class CreateGameModal extends Component {
     }
 
     validateNumericKeyPress(e){  
-            event.preventDefault();
+
+           // e.preventDefault();
     }
 
     render() {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Col } from 'react-bootstrap'
 import ListPlayer from './ListPlayer';
 import CreateGameModal from './CreateGameModal';
+import PendingGame from './PendingGame';
 import Mana from './Mana';
 import '../StyleSheets/WaitingRoom.css';
 
@@ -35,8 +36,13 @@ class WaitingRoom extends Component {
         }
     }
 
-    onCreateGame(name, format, playerCount){
+    closeCreateGame(){
+        
+    }
 
+    onCreateGame(name, format, playerCount){
+        this.props.CreateGame(name, format, playerCount);
+        this.closeCreateGame();
     }
 
     updateHeights() {
@@ -86,6 +92,9 @@ class WaitingRoom extends Component {
                         <button className="chatSubmitButton" onClick={() => {  }}>Create</button>
                         </Col>
                         <Col className="edgeless center-content name-container scrollable" style={{ minHeight: this.state.RightListHeight, maxHeight: this.state.RightListHeight }} xs={12} sm={12} md={12} lg={12}>
+                        {this.props.pendingGames.map((game) => (
+                                <PendingGame xs={12} sm={12} md={12} lg={12} Game={game} />
+                            ))}
                         </Col>
                     </Col>
                 </Col>
@@ -99,6 +108,7 @@ class WaitingRoom extends Component {
                     />
                     <button className="chatSubmitButton" onClick={() => { this.props.sendMessage(this.state.message); this.setState({ message: '' }) }}>Send</button>
                 </Col>
+                <CreateGameModal show={this.state.showCreateGameModal} onCreateGameClicked={this.onCreateGame.bind(this)} createGameClosed={this.closeCreateGame.bind(this)} />
             </Col>
         );
     }

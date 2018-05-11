@@ -3,12 +3,14 @@ const io = require('socket.io')()
 const waitingRoom =
   {
     Players: [],
-    Messages: []
+    Messages: [],
+    Games: []
   }
 
   function reset() {
     waitingRoom.Players = [];
     waitingRoom.Messages = [];  
+    waitingRoom.Games = [];  
 
   }
 
@@ -35,6 +37,11 @@ io.on('connection', function (socket) {
     sendChatRoomPlayers();
   })
 
+  socket.on('CreateGame', function (newGame) {
+    waitingRoom.Games.push(newGame);
+    io.emit('pendingGames', waitingRoom.Games);
+  })
+
   socket.on('sendMessage', function (message) {
     let date = new Date();
     let time = date.getHours().toString().padStart(2,"0") + ':'  + date.getMinutes().toString().padStart(2,"0") + ':' + date.getSeconds().toString().padStart(2,"0"); 
@@ -58,6 +65,7 @@ function sendChatRoomPlayers(){
   }
   io.emit('chatPlayers', chatPlayers);
   io.emit('messages', waitingRoom.Messages);
+  io.emit('pendingGames', waitingRoom.Games);
 }
 
 
