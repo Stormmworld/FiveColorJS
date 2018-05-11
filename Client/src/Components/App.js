@@ -30,8 +30,8 @@ class App extends Component {
     this.state.socket.emit('playerName', playerName);
   }
 
-  onCreateGame(name, format, playerCount){
-    this.state.socket.emit('CreateGame', {Name:name, Format:format, PlayerCount:playerCount});
+  onCreateGame(name, format, playerCount,baseHitpoints){
+    this.state.socket.emit('CreateGame', {Name:name, Format:format, PlayerCount:playerCount, BaseHitpoints:baseHitpoints});
   }
 
   onSendMessage(message){

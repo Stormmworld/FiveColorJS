@@ -7,6 +7,8 @@ const waitingRoom =
     Games: []
   }
 
+  const ActiveGames = [];
+
   function reset() {
     waitingRoom.Players = [];
     waitingRoom.Messages = [];  
@@ -38,7 +40,44 @@ io.on('connection', function (socket) {
   })
 
   socket.on('CreateGame', function (newGame) {
+    newGame.Players = [];
+    newGame.Id = guid();
+    
+    for (i = 0; i < waitingRoom.Players.length; i++) {
+      if (waitingRoom.Players[i].Socket === socket) {
+        newGame.Players.push(waitingRoom.Players[i].Name);
+        break;
+      }
+    }
     waitingRoom.Games.push(newGame);
+    io.emit('pendingGames', waitingRoom.Games);
+  })
+
+  socket.on('JoinGame', function (gameId) {    
+    for (i = 0; i < waitingRoom.Games.length; i++){
+      if (waitingRoom.Games[i].Id === gameId) {
+        for (i = 0; i < waitingRoom.Players.length; i++) {
+          if (waitingRoom.Players[i].Socket === socket) {
+            waitingRoom.Games[i].Players.push(waitingRoom.Players[i].Name);
+            break;
+          }
+        }
+      }
+    }   
+    io.emit('pendingGames', waitingRoom.Games);
+  })
+
+  socket.on('leaveGame', function (gameName) {    
+    for (i = 0; i < waitingRoom.Games.length; i++){
+      if (waitingRoom.Games[i].Name === gameName) {
+        for (i = 0; i < waitingRoom.Players.length; i++) {
+          if (waitingRoom.Players[i].Socket === socket) {
+            waitingRoom.Games[i].Players.push(waitingRoom.Players[i].Name);
+            break;
+          }
+        }
+      }
+    }   
     io.emit('pendingGames', waitingRoom.Games);
   })
 
@@ -68,6 +107,14 @@ function sendChatRoomPlayers(){
   io.emit('pendingGames', waitingRoom.Games);
 }
 
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
 
 reset()
 const port = 1337

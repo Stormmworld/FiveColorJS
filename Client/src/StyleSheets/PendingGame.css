@@ -1,0 +1,10 @@
+.pendingGameContainer{
+    background-image: url("../Images/symbols.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: lightgray;
+    border-color: black;
+    border-style: double;
+    padding-bottom: 1px;
+    padding-top:1px;
+}

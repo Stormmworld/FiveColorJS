@@ -6,7 +6,6 @@ import PendingGame from './PendingGame';
 import Mana from './Mana';
 import '../StyleSheets/WaitingRoom.css';
 
-
 class WaitingRoom extends Component {
     constructor(props) {
         super(props);
@@ -40,8 +39,8 @@ class WaitingRoom extends Component {
         this.setState({showCreateGameModal:false});
     }
 
-    onCreateGame(name, format, playerCount, baseHitpoints){
-        this.props.CreateGame(name, format, playerCount, baseHitpoints);
+    onCreateGame(name, format, playerCount){
+        this.props.CreateGame(name, format, playerCount);
         this.closeCreateGame();
     }
 
@@ -88,10 +87,8 @@ class WaitingRoom extends Component {
                     </Col>
                     <Col className="edgeless center-content name-container" style={{ minHeight: this.state.RightControlsHeight, maxHeight: this.state.RightControlsHeight }} xs={12} sm={12} md={12} lg={12}>
                         <Col className="edgeless center-content name-container" xs={12} sm={12} md={12} lg={12}>
-                        <Col className="edgeless center-content" xs={9} sm={9} md={9} lg={9}>Available Games</Col>
-                        <Col className="edgeless center-content" xs={3} sm={3} md={3} lg={3}>
-                            <button  onClick={() => {this.setState({showCreateGameModal:true});}}>Create</button>
-                        </Col>
+                        Available Games 
+                        <button className="chatSubmitButton" onClick={() => {this.setState({showCreateGameModal:true});}}>Create</button>
                         </Col>
                         <Col className="edgeless center-content name-container scrollable" style={{ minHeight: this.state.RightListHeight, maxHeight: this.state.RightListHeight }} xs={12} sm={12} md={12} lg={12}>
                         {this.props.pendingGames.map((game) => (

@@ -10,11 +10,12 @@ class CreateGameModal extends Component {
             Format: '',
             Name: '',
             PlayerCount:0,
+            BaseHitpoints:20
         }
     };
 
     onCreateGameClicked(){
-        this.props.onCreateGame(this.state.Name, this.state.Format, this.state.PlayerCount);
+        this.props.onCreateGame(this.state.Name, this.state.Format, this.state.PlayerCount, this.state.BaseHitpoints);
     }
 
     formatSelectionChanged(){
@@ -52,6 +53,14 @@ class CreateGameModal extends Component {
                         type="number" 
                         value={this.state.PlayerCount} 
                         onChange={e => this.setState({ PlayerCount: e.target.value })} 
+                    />
+                </Col>
+                <Col className="edgeless " xs={12} sm={12} md={12} lg={12}>
+                    <label>Starting Hitpoints:</label>
+                    <input 
+                        type="number" 
+                        value={this.state.BaseHitpoints} 
+                        onChange={e => this.setState({ BaseHitpoints: e.target.value })} 
                     />
                 </Col>
             </ModalComponent>
