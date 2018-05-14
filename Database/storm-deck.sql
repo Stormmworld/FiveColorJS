@@ -325,6 +325,5 @@ INSERT INTO [dbo].[DeckCards]([DeckFk],[CardFk])
 	       ,(@stormDeckId ,(Select top 1 Id from Cards Where [Name] = 'Azusa, Lost but Seeking'))
 	       ,(@stormDeckId ,(Select top 1 Id from Cards Where [Name] = 'Azusa, Lost but Seeking'))
 
-
 rollback tran
 --commit tran

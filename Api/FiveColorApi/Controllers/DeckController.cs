@@ -12,14 +12,14 @@ namespace FiveColorApi.Controllers
         [HttpGet]
         public FiveColorApi.Model.Deck GetDeck(int id)
         {
-            return Repository.Deck.GetDeck(id);
+            return Repository.DeckRepository.GetDeck(id);
 
             //return Mock.GetMockDeck();
         }
         [HttpGet]
         public GetDecksResponse GetDecks(GetDecksRequest request)
         {
-            return Repository.Deck.GetDecks(request.Format, request.MyDecksOnly? request.PlayerId: -1);
+            return Repository.DeckRepository.GetDecks(request.Format, request.MyDecksOnly? request.PlayerId: -1);
         }
     }
 }
