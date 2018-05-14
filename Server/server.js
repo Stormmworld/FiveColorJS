@@ -7,14 +7,14 @@ const waitingRoom =
     Games: []
   }
 
-  const ActiveGames = [];
+const ActiveGames = [];
 
-  function reset() {
-    waitingRoom.Players = [];
-    waitingRoom.Messages = [];  
-    waitingRoom.Games = [];  
+function reset() {
+  waitingRoom.Players = [];
+  waitingRoom.Messages = [];
+  waitingRoom.Games = [];
 
-  }
+}
 
 io.on('connection', function (socket) {
   waitingRoom.Players.push({ Name: "Player " + (waitingRoom.Players.length + 1), Socket: socket, Status: "Lobby" });
@@ -30,77 +30,66 @@ io.on('connection', function (socket) {
   })
 
   socket.on('playerName', function (name) {
-    for (i = 0; i < waitingRoom.Players.length; i++) {
-      if (waitingRoom.Players[i].Socket === socket) {
-        waitingRoom.Players[i].Name = name;
-        break;
-      }
-    }
+    var player = findPlayer(socket);
+    // for (i = 0; i < waitingRoom.Players.length; i++) {
+    //   if (waitingRoom.Players[i].Socket === socket) {
+    //     waitingRoom.Players[i].Name = name;
+    //     break;
+    //   }
+    // }
+    player.Name = name;
     sendChatRoomPlayers();
   })
 
   socket.on('CreateGame', function (newGame) {
+    var player = findPlayer(socket);
     newGame.Players = [];
     newGame.Id = guid();
-    
-    for (i = 0; i < waitingRoom.Players.length; i++) {
-      if (waitingRoom.Players[i].Socket === socket) {
-        newGame.Players.push(waitingRoom.Players[i].Name);
-        break;
-      }
-    }
     waitingRoom.Games.push(newGame);
+    addPlayerToGame(player, newGame.Id);
     io.emit('pendingGames', waitingRoom.Games);
   })
 
-  socket.on('JoinGame', function (gameId) {    
-    for (i = 0; i < waitingRoom.Games.length; i++){
-      if (waitingRoom.Games[i].Id === gameId) {
-        for (i = 0; i < waitingRoom.Players.length; i++) {
-          if (waitingRoom.Players[i].Socket === socket) {
-            waitingRoom.Games[i].Players.push(waitingRoom.Players[i].Name);
-            break;
-          }
-        }
-      }
-    }   
+  socket.on('JoinGame', function (gameId) {
+    var player = findPlayer(socket);
+    if (player.gameId !== undefined && player.gameId !== null) {
+      removePlayerFromGame(player);
+    }
+    addPlayerToGame(player, gameId);
     io.emit('pendingGames', waitingRoom.Games);
   })
 
-  socket.on('leaveGame', function (gameName) {    
-    for (i = 0; i < waitingRoom.Games.length; i++){
-      if (waitingRoom.Games[i].Name === gameName) {
-        for (i = 0; i < waitingRoom.Players.length; i++) {
-          if (waitingRoom.Players[i].Socket === socket) {
-            waitingRoom.Games[i].Players.push(waitingRoom.Players[i].Name);
-            break;
-          }
-        }
-      }
-    }   
+  socket.on('leaveGame', function (gameName) {
+    var player = findPlayer(socket);
+    removePlayerFromGame(player);
+    io.emit('pendingGames', waitingRoom.Games);
+  })
+
+  socket.on('StartGame', function (gameId) {
+    //remove game from pending, then send out active game notice to all players
     io.emit('pendingGames', waitingRoom.Games);
   })
 
   socket.on('sendMessage', function (message) {
     let date = new Date();
-    let time = date.getHours().toString().padStart(2,"0") + ':'  + date.getMinutes().toString().padStart(2,"0") + ':' + date.getSeconds().toString().padStart(2,"0"); 
+    let time = date.getHours().toString().padStart(2, "0") + ':' + date.getMinutes().toString().padStart(2, "0") + ':' + date.getSeconds().toString().padStart(2, "0");
     for (i = 0; i < waitingRoom.Players.length; i++) {
       if (waitingRoom.Players[i].Socket === socket) {
         //waitingRoom.Messages.push({Name: waitingRoom.Players[i].Name, Message: message});
-        waitingRoom.Messages.splice(0,0,{Name: waitingRoom.Players[i].Name, Message: message, Time: time});
+        waitingRoom.Messages.splice(0, 0, { Name: waitingRoom.Players[i].Name, Message: message, Time: time });
         break;
       }
     }
-    
+
     io.emit('messages', waitingRoom.Messages);
   })
 })
 
-function sendChatRoomPlayers(){
+function sendChatRoomPlayers() {
   let chatPlayers = [];
   for (i = 0; i < waitingRoom.Players.length; i++) {
-    if(waitingRoom.Players[i].Status==="Lobby")
-    chatPlayers.push(waitingRoom.Players[i].Name);
+    if (waitingRoom.Players[i].Status === "Lobby")
+      chatPlayers.push(waitingRoom.Players[i].Name);
   }
   io.emit('chatPlayers', chatPlayers);
   io.emit('messages', waitingRoom.Messages);
@@ -114,6 +103,34 @@ function guid() {
       .substring(1);
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+function findPlayer(socket) {
+  for (i = 0; i < waitingRoom.Players.length; i++) {
+    if (waitingRoom.Players[i].Socket === socket) {
+      return waitingRoom.Players[i]
+    }
+  }
+
+}
+
+function addPlayerToGame(player, gameId) {
+  for (i = 0; i < waitingRoom.Games.length; i++) {
+    if (waitingRoom.Games[i].Id === gameId) {
+      waitingRoom.Games[i].Players.push(player.Name);
+      player.gameId = gameId;
+    }
+  }
+}
+
+function removePlayerFromGame(player) {
+  for (i = 0; i < waitingRoom.Games.length; i++) {
+    if (waitingRoom.Games[i].Id === gameId) {
+      var index = waitingRoom.Games[i].Players.indexOf(player.Name);
+      waitingRoom.Games[i].Players.splice(index, 1);
+    }
+  }
+  player.gameId = null;
 }
 
 reset()

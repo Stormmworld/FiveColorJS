@@ -1,10 +1,37 @@
 .pendingGameContainer{
-    background-image: url("../Images/symbols.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: lightgray;
+    background-color: dimgrey;
     border-color: black;
     border-style: double;
     padding-bottom: 1px;
     padding-top:1px;
+}
+.pendingGameImage{
+    background-image: url("../Images/symbols.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height:60px;
+}
+.pendingGameName{
+    font-size: 25px;
+}
+.pendingGameLife{
+    font-size: 15px;
+}
+.pendingGamePlayerCount{
+    font-size: 15px;
+}
+.pendingGameFormat{
+    font-size: 12px;
+}
+.pendingGameJoinButton{
+    padding: 0px 15px;
+    font-size: 15px;
+    border: 1px;
+    border-color: black;
+    color: white;
+    background-color: crimson;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 20%;
 }

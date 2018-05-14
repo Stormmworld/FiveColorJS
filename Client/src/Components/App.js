@@ -38,6 +38,16 @@ class App extends Component {
      this.state.socket.emit('sendMessage', message);
   }
 
+  onJoinGame(gameId){
+    this.state.socket.emit('JoinGame', gameId);
+  }
+  onLeaveGame(gameId){
+    this.state.socket.emit('leaveGame', gameId);
+  }
+  onStartGame(gameId){
+    this.state.socket.emit('StartGame', gameId);
+  }
+
   render() {
     return (
       <div className="container-fluid edgeless" >
@@ -45,7 +55,10 @@ class App extends Component {
                      ChatMessages={this.state.ChatMessages} 
                      ChatPlayers={this.state.ChatPlayers} 
                      CreateGame={this.onCreateGame.bind(this)}
-                     pendingGames={this.state.PendingGames}/>
+                     pendingGames={this.state.PendingGames}
+                     onJoinGame={this.onJoinGame.bind(this)}
+                     onStartGame={this.onStartGame.bind(this)}
+                     onLeaveGame={this.onLeaveGame.bind(this)}/>
       </div>
     );
   }

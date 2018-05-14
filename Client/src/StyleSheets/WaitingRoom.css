@@ -1,11 +1,45 @@
+.waitingRoomContainer{
+    background-color: beige;
+
+}
+
+.pendingGamesContainer{
+    background-color: darkslategrey;
+    color: whitesmoke;
+}
+.pendingGamesHeader{
+    background-color: black;
+    color: whitesmoke;
+}
+
+.lobbyContainer{
+    background-color: darkslategrey;
+    color: whitesmoke;
+}
+
+.lobbyHeader{
+    background-color: black;
+    color: whitesmoke;
+}
+
 .chatHeader{
     height: 40px;
-    background-color: beige;
+    background-color: black;
+    color: whitesmoke;
 }
 
 .chatSubmitButton{
-    height: 40px;
-    width: 10%;
+    padding: 0px 25px;
+    font-size: 15px;
+    border: 1px;
+    border-color: black;
+    color: white;
+    background-color: blue;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 20%;
+    margin-left: 10px;
 }
 
 .chatMessagebox{
@@ -16,4 +50,18 @@
 .messageWindowContainer{
     text-align: left;
     background-color: blanchedalmond;
+}
+
+.createGameButton{
+    padding: 0px 15px;
+    font-size: 15px;
+    border: 1px;
+    border-color: black;
+    color: white;
+    background-color: green;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 20%;
+    margin-left: 10px;
 }
