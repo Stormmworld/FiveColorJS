@@ -1,13 +1,17 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+
 # dependencies
 /node_modules
+
 
 # testing
 /coverage
 
+
 # production
 /build
+
 
 # misc
 .DS_Store
@@ -23,3 +27,9 @@ yarn-error.log*
 /Client/node_modules
 /Server/node_modules
 /Server/node_modules
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages

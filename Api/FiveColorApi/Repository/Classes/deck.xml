@@ -1,0 +1,270 @@
+﻿<Deck Name="Test">
+  <Cards>
+    <Card DeckCardId="1" id="298" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/233.jpg" Name="Black Lotus">
+      <Types>
+        <Type Type="Artifact" />
+      </Types>
+      <ManaProduction>
+        <Mana Quantity="3" Abbreviation="R" />
+        <Mana Quantity="3" Abbreviation="W" />
+        <Mana Quantity="3" Abbreviation="U" />
+        <Mana Quantity="3" Abbreviation="B" />
+        <Mana Quantity="3" Abbreviation="G" />
+      </ManaProduction>
+      <ManaCost>
+        <Mana cost="{0}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="2" id="327" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/262.jpg" Name="Mox Emerald">
+      <Types>
+        <Type Type="Artifact" />
+      </Types>
+      <ManaProduction>
+        <Mana Quantity="1" Abbreviation="G" />
+      </ManaProduction>
+      <ManaCost>
+        <Mana cost="{0}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="3" id="328" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/263.jpg" Name="Mox Jet">
+      <Types>
+        <Type Type="Artifact" />
+      </Types>
+      <ManaProduction>
+        <Mana Quantity="1" Abbreviation="B" />
+      </ManaProduction>
+      <ManaCost>
+        <Mana cost="{0}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="4" id="329" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/264.jpg" Name="Mox Pearl">
+      <Types>
+        <Type Type="Artifact" />
+      </Types>
+      <ManaProduction>
+        <Mana Quantity="1" Abbreviation="W" />
+      </ManaProduction>
+      <ManaCost>
+        <Mana cost="{0}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="5" id="330" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/265.jpg" Name="Mox Ruby">
+      <Types>
+        <Type Type="Artifact" />
+      </Types>
+      <ManaProduction>
+        <Mana Quantity="1" Abbreviation="R" />
+      </ManaProduction>
+      <ManaCost>
+        <Mana cost="{0}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="6" id="331" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/266.jpg" Name="Mox Sapphire">
+      <Types>
+        <Type Type="Artifact" />
+      </Types>
+      <ManaProduction>
+        <Mana Quantity="1" Abbreviation="U" />
+      </ManaProduction>
+      <ManaCost>
+        <Mana cost="{0}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="7" id="390" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/48.jpg" Name="Ancestral Recall">
+      <Types>
+        <Type Type="Instant" />
+      </Types>
+      <ManaCost>
+        <Mana cost="{U}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="8" id="426" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/84.jpg" Name="Time Walk">
+      <Types>
+        <Type Type="Sorcery" />
+      </Types>
+      <ManaCost>
+        <Mana cost="{1}{U}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="9" id="427" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/85.jpg" Name="Timetwister">
+      <Types>
+        <Type Type="Sorcery" />
+      </Types>
+      <ManaCost>
+        <Mana cost="{2}{U}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="10" id="582" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/284.jpg" Name="Tropical Island">
+      <Types>
+        <Type Type="Land" />
+      </Types>
+      <SubTypes>
+        <SubType SubType="Island" />
+        <SubType SubType="Forest" />
+      </SubTypes>
+      <ManaProduction>
+        <Mana Quantity="1" Abbreviation="G" />
+        <Mana Quantity="1" Abbreviation="U" />
+      </ManaProduction>
+    </Card>
+    <Card DeckCardId="11" id="582" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/284.jpg" Name="Tropical Island">
+      <Types>
+        <Type Type="Land" />
+      </Types>
+      <SubTypes>
+        <SubType SubType="Island" />
+        <SubType SubType="Forest" />
+      </SubTypes>
+      <ManaProduction>
+        <Mana Quantity="1" Abbreviation="G" />
+        <Mana Quantity="1" Abbreviation="U" />
+      </ManaProduction>
+    </Card>
+    <Card DeckCardId="12" id="582" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/284.jpg" Name="Tropical Island">
+      <Types>
+        <Type Type="Land" />
+      </Types>
+      <SubTypes>
+        <SubType SubType="Island" />
+        <SubType SubType="Forest" />
+      </SubTypes>
+      <ManaProduction>
+        <Mana Quantity="1" Abbreviation="G" />
+        <Mana Quantity="1" Abbreviation="U" />
+      </ManaProduction>
+    </Card>
+    <Card DeckCardId="13" id="582" ImageUrl="https://img.scryfall.com/cards/normal/en/leb/284.jpg" Name="Tropical Island">
+      <Types>
+        <Type Type="Land" />
+      </Types>
+      <SubTypes>
+        <SubType SubType="Island" />
+        <SubType SubType="Forest" />
+      </SubTypes>
+      <ManaProduction>
+        <Mana Quantity="1" Abbreviation="G" />
+        <Mana Quantity="1" Abbreviation="U" />
+      </ManaProduction>
+    </Card>
+    <Card DeckCardId="14" id="189652" ImageUrl="https://img.scryfall.com/cards/normal/en/arb/131.jpg" Name="Arsenal Thresher" Power="2" Toughness="2">
+      <Types>
+        <Type Type="Creature" />
+        <Type Type="Artifact" />
+      </Types>
+      <SubTypes>
+        <SubType SubType="Construct" />
+      </SubTypes>
+      <ManaCost>
+        <Mana cost="{2}{W/B}{U}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="15" id="221896" ImageUrl="https://img.scryfall.com/cards/normal/en/m12/165.jpg" Name="Birds of Paradise" Power="0" Toughness="1">
+      <Types>
+        <Type Type="Creature" />
+      </Types>
+      <SubTypes>
+        <SubType SubType="Bird" />
+      </SubTypes>
+      <ManaCost>
+        <Mana cost="{G}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="16" id="221896" ImageUrl="https://img.scryfall.com/cards/normal/en/m12/165.jpg" Name="Birds of Paradise" Power="0" Toughness="1">
+      <Types>
+        <Type Type="Creature" />
+      </Types>
+      <SubTypes>
+        <SubType SubType="Bird" />
+      </SubTypes>
+      <ManaCost>
+        <Mana cost="{G}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="17" id="221896" ImageUrl="https://img.scryfall.com/cards/normal/en/m12/165.jpg" Name="Birds of Paradise" Power="0" Toughness="1">
+      <Types>
+        <Type Type="Creature" />
+      </Types>
+      <SubTypes>
+        <SubType SubType="Bird" />
+      </SubTypes>
+      <ManaCost>
+        <Mana cost="{G}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="18" id="221896" ImageUrl="https://img.scryfall.com/cards/normal/en/m12/165.jpg" Name="Birds of Paradise" Power="0" Toughness="1">
+      <Types>
+        <Type Type="Creature" />
+      </Types>
+      <SubTypes>
+        <SubType SubType="Bird" />
+      </SubTypes>
+      <ManaCost>
+        <Mana cost="{G}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="19" id="382870" ImageUrl="https://img.scryfall.com/cards/normal/en/vma/57.jpg" Name="Brain Freeze">
+      <Types>
+        <Type Type="Instant" />
+      </Types>
+      <ManaCost>
+        <Mana cost="{1}{U}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="20" id="382870" ImageUrl="https://img.scryfall.com/cards/normal/en/vma/57.jpg" Name="Brain Freeze">
+      <Types>
+        <Type Type="Instant" />
+      </Types>
+      <ManaCost>
+        <Mana cost="{1}{U}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="21" id="382870" ImageUrl="https://img.scryfall.com/cards/normal/en/vma/57.jpg" Name="Brain Freeze">
+      <Types>
+        <Type Type="Instant" />
+      </Types>
+      <ManaCost>
+        <Mana cost="{1}{U}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="22" id="382870" ImageUrl="https://img.scryfall.com/cards/normal/en/vma/57.jpg" Name="Brain Freeze">
+      <Types>
+        <Type Type="Instant" />
+      </Types>
+      <ManaCost>
+        <Mana cost="{1}{U}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="23" id="416750" ImageUrl="https://img.scryfall.com/cards/normal/en/v16/8.jpg" Name="Mind's Desire">
+      <Types>
+        <Type Type="Sorcery" />
+      </Types>
+      <ManaCost>
+        <Mana cost="{4}{U}{U}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="24" id="416750" ImageUrl="https://img.scryfall.com/cards/normal/en/v16/8.jpg" Name="Mind's Desire">
+      <Types>
+        <Type Type="Sorcery" />
+      </Types>
+      <ManaCost>
+        <Mana cost="{4}{U}{U}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="25" id="416750" ImageUrl="https://img.scryfall.com/cards/normal/en/v16/8.jpg" Name="Mind's Desire">
+      <Types>
+        <Type Type="Sorcery" />
+      </Types>
+      <ManaCost>
+        <Mana cost="{4}{U}{U}" />
+      </ManaCost>
+    </Card>
+    <Card DeckCardId="26" id="416750" ImageUrl="https://img.scryfall.com/cards/normal/en/v16/8.jpg" Name="Mind's Desire">
+      <Types>
+        <Type Type="Sorcery" />
+      </Types>
+      <ManaCost>
+        <Mana cost="{4}{U}{U}" />
+      </ManaCost>
+    </Card>
+  </Cards>
+</Deck>
