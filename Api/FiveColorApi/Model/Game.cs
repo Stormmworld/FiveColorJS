@@ -5,6 +5,7 @@ using FiveColorApi.Classes.Enumerations;
 using FiveColorApi.Model;
 using Newtonsoft.Json;
 using Phase = FiveColorApi.Model.Phase;
+using Player = FiveColorApi.Model.Player;
 
 namespace FiveColorApi.Classes
 {

@@ -20,7 +20,6 @@ namespace FiveColorApi.Controllers
                 Phase = new Phase(),
                 Id = Guid.NewGuid(),
                 Name = request.GameName,
-                Players = new List<Player>() { Database.GetPlayer(request.PlayerId) },
                 Status = Status.WaitingRoom
             };
             MemoryCacher.Replace(newGame.Id.ToString(), newGame, DateTimeOffset.UtcNow.AddHours(1));
@@ -49,7 +48,6 @@ namespace FiveColorApi.Controllers
         public GameResponse JoinGame([FromUri] JoinGameRequest request)
         {
             Game game = (Game)MemoryCacher.GetValue(request.GameId);
-            game.Players.Add(Database.GetPlayer(request.PlayerId));
             MemoryCacher.Replace(game.Id.ToString(), game, DateTimeOffset.UtcNow.AddHours(1));
             return new GameResponse(game);
         }

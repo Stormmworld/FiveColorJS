@@ -1,6 +1,7 @@
 ﻿using FiveColorApi.Model;
 using System.IO;
 using System.Data;
+using System.Web.Http;
 using System.Data.SqlClient;
 using System.Xml.Serialization;
 
@@ -13,6 +14,7 @@ namespace FiveColorApi.Repository
         #endregion
 
         #region Methods
+        [HttpGet]
         public static PlayerDetails CreatePlayer(string displayName, string firstName, string lastName)
         {
             SqlConnection sqlConnection1 = new SqlConnection(CONNECTIONSTRING);
@@ -27,6 +29,7 @@ namespace FiveColorApi.Repository
             cmd.ExecuteNonQuery();
             return GetPlayer(displayName);
         }
+        [HttpGet]
         public static PlayerDetails GetPlayer(string displayName)
         {
             PlayerDetails retVal = new PlayerDetails();
@@ -45,10 +48,10 @@ namespace FiveColorApi.Repository
 
             if (reader.Read())
             {
-                Player result;
+                FiveColorApi.Repository.Classes.Player result;
                 var serializer = new XmlSerializer(typeof(DeckRepository));
                 using (TextReader treader = new StringReader(reader[0].ToString()))
-                    result = (Player)serializer.Deserialize(treader);
+                    result = (FiveColorApi.Repository.Classes.Player)serializer.Deserialize(treader);
                 retVal = new PlayerDetails()
                 {
                     DisplayName = result.DisplayName,
@@ -60,6 +63,7 @@ namespace FiveColorApi.Repository
             sqlConnection1.Close();
             return retVal;
         }
+        [HttpGet]
         public static PlayerDetails ModifyPlayer(int id, string displayName, string firstName, string lastName)
         {
             SqlConnection sqlConnection1 = new SqlConnection(CONNECTIONSTRING);
@@ -75,6 +79,7 @@ namespace FiveColorApi.Repository
             cmd.ExecuteNonQuery();
             return GetPlayer(displayName);
         }
+        [HttpPost]
         public static void RemovePlayer(int id)
         {
             SqlConnection sqlConnection1 = new SqlConnection(CONNECTIONSTRING);

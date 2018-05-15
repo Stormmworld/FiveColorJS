@@ -106,7 +106,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Classes\Database.cs" />
     <Compile Include="Classes\Enumerations.cs" />
     <Compile Include="Classes\MemoryCacher.cs" />
     <Compile Include="Classes\Request\CreateGameRequest.cs" />
@@ -115,6 +114,8 @@
     <Compile Include="Classes\Request\GetDecksRequest.cs" />
     <Compile Include="Classes\Request\GetPlayerDetailRequest.cs" />
     <Compile Include="Classes\Request\JoinGameRequest.cs" />
+    <Compile Include="Classes\Request\ModifyPlayerGetPlayerDetailRequest.cs" />
+    <Compile Include="Classes\Request\RemovePlayerDetailRequest.cs" />
     <Compile Include="Classes\Request\RetrieveGameRequest.cs" />
     <Compile Include="Classes\Request\SelectDeckRequest.cs" />
     <Compile Include="Classes\Response\GameResponse.cs" />
@@ -165,7 +166,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54900</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54900/</IISUrl>
+          <IISUrl>http://localhost:5000/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
