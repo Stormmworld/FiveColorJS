@@ -11,7 +11,8 @@ namespace FiveColorApi.Repository
     public class PlayerRepository
     {
         #region Constants
-        const string CONNECTIONSTRING = "Data Source=HPPROLIANT;Initial Catalog=MTG;User Id=Sql_Mtg;Password = Mag!c;";
+        //const string CONNECTIONSTRING = "Data Source=HPPROLIANT;Initial Catalog=MTG;User Id=Sql_Mtg;Password = Mag!c;";
+        const string CONNECTIONSTRING = @"Server=localhost\SQLEXPRESS;Database=MTG;Trusted_Connection=True;";
         #endregion
 
         #region Methods
@@ -81,7 +82,7 @@ namespace FiveColorApi.Repository
         {
             SqlConnection sqlConnection1 = new SqlConnection(CONNECTIONSTRING);
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "p_Upd_PlayerInfo";
+            cmd.CommandText = "p_Del_PlayerInfo";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = sqlConnection1;
             cmd.Parameters.AddWithValue("@Id", id);

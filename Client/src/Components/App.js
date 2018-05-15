@@ -10,7 +10,7 @@ class App extends Component {
 
     this.state = {
       PlayerName: '',
-      socket: openSocket('http://localhost:1337'),
+      socket: openSocket('http://localhost:5001'),
       ChatMessages: [],
       ChatPlayers:[],
       PendingGames:[],

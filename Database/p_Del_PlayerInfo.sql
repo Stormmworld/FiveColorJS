@@ -1,0 +1,8 @@
+CREATE PROCEDURE p_Del_PlayerInfo
+	@Id int 
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DELETE FROM Players Where Id = @Id
+END
+GO

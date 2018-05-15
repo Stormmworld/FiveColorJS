@@ -1,3 +1,4 @@
+const fetch = require('node-fetch'); 
 const io = require('socket.io')()
 
 const waitingRoom =
@@ -9,6 +10,23 @@ const waitingRoom =
 
 const ActiveGames = [];
 
+if (!String.prototype.padStart) {
+  String.prototype.padStart = function padStart(targetLength,padString) {
+      targetLength = targetLength>>0; //truncate if number or convert non-number to 0;
+      padString = String((typeof padString !== 'undefined' ? padString : ' '));
+      if (this.length > targetLength) {
+          return String(this);
+      }
+      else {
+          targetLength = targetLength-this.length;
+          if (targetLength > padString.length) {
+              padString += padString.repeat(targetLength/padString.length); //append to original to ensure we are longer than needed
+          }
+          return padString.slice(0,targetLength) + String(this);
+      }
+  };
+}
+
 function reset() {
   waitingRoom.Players = [];
   waitingRoom.Messages = [];
@@ -17,7 +35,7 @@ function reset() {
 }
 
 io.on('connection', function (socket) {
-  waitingRoom.Players.push({ Name: "Player " + (waitingRoom.Players.length + 1), Socket: socket, Status: "Lobby" });
+  waitingRoom.Players.push({ Name: "Player " + (waitingRoom.Players.length + 1), Socket: socket, Status: "Lobby", Data: null });
 
   socket.on('disconnect', function () {
     for (i = 0; i < waitingRoom.Players.length; i++) {
@@ -31,14 +49,7 @@ io.on('connection', function (socket) {
 
   socket.on('playerName', function (name) {
     var player = findPlayer(socket);
-    // for (i = 0; i < waitingRoom.Players.length; i++) {
-    //   if (waitingRoom.Players[i].Socket === socket) {
-    //     waitingRoom.Players[i].Name = name;
-    //     break;
-    //   }
-    // }
-    player.Name = name;
-    sendChatRoomPlayers();
+    getPlayerData(name, player);
   })
 
   socket.on('CreateGame', function (newGame) {
@@ -133,7 +144,21 @@ function removePlayerFromGame(player) {
   player.gameId = null;
 }
 
+function getPlayerData(name, player) {
+  fetch("http://localhost:5002/api/Player/GetPlayer?Name=" + name)
+    .then((resp) => resp.json()) 
+    .then(function (data) {
+      console.log('Received player info: ' + data.toString());
+      player.Data = data;
+      player.Name = data.DisplayName;
+      sendChatRoomPlayers();
+    })
+    .catch(function (e) {
+      console.log('error fetching player data' + e);
+    });
+}
+
 reset()
-const port = 1337
+const port = 5001
 io.listen(port)
 console.log('Listening on port ' + port + '...')
