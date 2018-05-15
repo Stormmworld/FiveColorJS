@@ -4,6 +4,7 @@ using System.Data;
 using System.Web.Http;
 using System.Data.SqlClient;
 using System.Xml.Serialization;
+using System;
 
 namespace FiveColorApi.Repository
 {
@@ -48,16 +49,12 @@ namespace FiveColorApi.Repository
 
             if (reader.Read())
             {
-                FiveColorApi.Repository.Classes.Player result;
-                var serializer = new XmlSerializer(typeof(DeckRepository));
-                using (TextReader treader = new StringReader(reader[0].ToString()))
-                    result = (FiveColorApi.Repository.Classes.Player)serializer.Deserialize(treader);
                 retVal = new PlayerDetails()
                 {
-                    DisplayName = result.DisplayName,
-                    Id = result.Id,
-                    FirstName = result.FirstName,
-                    LastName = result.LastName,
+                    DisplayName = reader["DisplayName"].ToString(),
+                    Id = Convert.ToInt32(reader["Id"].ToString()),
+                    FirstName = reader["FirstName"].ToString(),
+                    LastName = reader["LastName"].ToString(),
                 };
             }            
             sqlConnection1.Close();

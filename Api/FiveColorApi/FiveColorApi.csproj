@@ -146,7 +146,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Classes\Deck.cs" />
     <Compile Include="Repository\Classes\Decks.cs" />
-    <Compile Include="Repository\Classes\Player.cs" />
     <Compile Include="Repository\DeckRepository.cs" />
     <Compile Include="Repository\PlayerRepository.cs" />
   </ItemGroup>
