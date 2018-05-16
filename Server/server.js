@@ -1,4 +1,4 @@
-const fetch = require('node-fetch'); 
+const fetch = require('node-fetch');
 const io = require('socket.io')()
 
 const waitingRoom =
@@ -11,19 +11,19 @@ const waitingRoom =
 const ActiveGames = [];
 
 if (!String.prototype.padStart) {
-  String.prototype.padStart = function padStart(targetLength,padString) {
-      targetLength = targetLength>>0; //truncate if number or convert non-number to 0;
-      padString = String((typeof padString !== 'undefined' ? padString : ' '));
-      if (this.length > targetLength) {
-          return String(this);
+  String.prototype.padStart = function padStart(targetLength, padString) {
+    targetLength = targetLength >> 0; //truncate if number or convert non-number to 0;
+    padString = String((typeof padString !== 'undefined' ? padString : ' '));
+    if (this.length > targetLength) {
+      return String(this);
+    }
+    else {
+      targetLength = targetLength - this.length;
+      if (targetLength > padString.length) {
+        padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
       }
-      else {
-          targetLength = targetLength-this.length;
-          if (targetLength > padString.length) {
-              padString += padString.repeat(targetLength/padString.length); //append to original to ensure we are longer than needed
-          }
-          return padString.slice(0,targetLength) + String(this);
-      }
+      return padString.slice(0, targetLength) + String(this);
+    }
   };
 }
 
@@ -61,8 +61,14 @@ io.on('connection', function (socket) {
     io.emit('pendingGames', waitingRoom.Games);
   })
 
+  socket.on('onCreatePlayer', function (newPlayer) {
+    var player = findPlayer(socket);
+    createNewPlayer(newPlayer.DisplayName, newPlayer.FirstName, newPlayer.LastName, player);
+  })
+
   socket.on('JoinGame', function (gameId) {
     var player = findPlayer(socket);
+    console.log(player.data.DisplayName + 'joining game ' + gameId);
     if (player.gameId !== undefined && player.gameId !== null) {
       removePlayerFromGame(player);
     }
@@ -146,15 +152,39 @@ function removePlayerFromGame(player) {
 
 function getPlayerData(name, player) {
   fetch("http://localhost:5002/api/Player/GetPlayer?Name=" + name)
-    .then((resp) => resp.json()) 
+    .then((resp) => resp.json())
     .then(function (data) {
-      console.log('Received player info: ' + data.toString());
-      player.Data = data;
-      player.Name = data.DisplayName;
-      sendChatRoomPlayers();
+      //console.log('Received player info: ' + data.toString());
+      if (data.DisplayName === "Not Found") {
+        io.emit('createPlayer', name);
+      }
+      else {
+        player.Data = data;
+        player.Name = data.DisplayName;
+        sendChatRoomPlayers();
+      }
     })
     .catch(function (e) {
       console.log('error fetching player data' + e);
+    });
+}
+
+function createNewPlayer(displayName, firstName, lastName, player) {
+  //console.log('creating player' + displayName);
+  fetch("http://localhost:5002/api/Player/CreatePlayer?DisplayName=" + displayName + "&FirstName=" + firstName + "&LastName=" + lastName)
+    .then((resp) => resp.json())
+    .then(function (data) {
+      if (data.DisplayName === "Not Found") {
+        io.emit('createPlayer', name);
+      }
+      else {
+        player.Data = data;
+        player.Name = data.DisplayName;
+        sendChatRoomPlayers();
+      }
+    })
+    .catch(function (e) {
+      console.log('error creating player data' + e);
     });
 }
 

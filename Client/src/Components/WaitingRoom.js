@@ -47,7 +47,7 @@ class WaitingRoom extends Component {
     updateHeights() {
         this.setState({
             ChatroomHeight: ((window.innerHeight)-40) + 'px',
-            MessageWindowHeight: ((window.innerHeight - 20) - 80) + 'px',
+            MessageWindowHeight: ((window.innerHeight - 20) - 100) + 'px',
             RightControlsHeight: (((window.innerHeight - 20) / 2) - 15) + 'px',
             RightListHeight: (((window.innerHeight - 20) / 2)-30) + 'px',
         });
@@ -70,6 +70,9 @@ class WaitingRoom extends Component {
                     <Col className="edgeless center-content " xs={1} sm={1} md={1} lg={1}><Mana color='G' /></Col>
                 </Col>
                 <Col className="edgeless center-content name-container" xs={8} sm={8} md={8} lg={8}>
+                    <Col xs={12} sm={12} md={12} lg={12} className="chatHeader">
+                        Signed in as {this.props.PlayerName}
+                    </Col>
                     <Col className="messageWindowContainer scrollable" style={{ minHeight: this.state.MessageWindowHeight, maxHeight: this.state.MessageWindowHeight }} xs={12} sm={12} md={12} lg={12}>
                         {this.props.ChatMessages.map((message, index) => (
                             <span style={{ display: 'block' }} key={index}> ({message.Time}) {message.Name} : {message.Message} </span>
@@ -106,9 +109,9 @@ class WaitingRoom extends Component {
                             {this.props.pendingGames.map((game) => (
                                 <PendingGame xs={12} sm={12} md={12} lg={12}
                                     Game={game}
-                                    onJoinGame={() => this.props.onJoinGame}
-                                    onStartGame={() => this.props.onStartGame}
-                                    onLeaveGame={() => this.props.onLeaveGame} />
+                                    onJoinGame={this.props.onJoinGame}
+                                    onStartGame={this.props.onStartGame}
+                                    onLeaveGame={this.props.onLeaveGame} />
                             ))}
                         </Col>
                     </Col>

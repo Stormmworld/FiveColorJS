@@ -11,8 +11,8 @@ namespace FiveColorApi.Repository
     public class PlayerRepository
     {
         #region Constants
-        //const string CONNECTIONSTRING = "Data Source=HPPROLIANT;Initial Catalog=MTG;User Id=Sql_Mtg;Password = Mag!c;";
-        const string CONNECTIONSTRING = @"Server=localhost\SQLEXPRESS;Database=MTG;Trusted_Connection=True;";
+        const string CONNECTIONSTRING = "Data Source=HPPROLIANT;Initial Catalog=MTG;User Id=Sql_Mtg;Password = Mag!c;";
+        //const string CONNECTIONSTRING = @"Server=localhost\SQLEXPRESS;Database=MTG;Trusted_Connection=True;";
         #endregion
 
         #region Methods
@@ -27,6 +27,7 @@ namespace FiveColorApi.Repository
             cmd.Parameters.AddWithValue("@DisplayName", displayName);
             cmd.Parameters.AddWithValue("@FirstName", firstName);
             cmd.Parameters.AddWithValue("@LastName", lastName);
+            cmd.Parameters.AddWithValue("@ImageUrl", "");
             sqlConnection1.Open();
             cmd.ExecuteNonQuery();
             return GetPlayer(displayName);
@@ -57,7 +58,10 @@ namespace FiveColorApi.Repository
                     FirstName = reader["FirstName"].ToString(),
                     LastName = reader["LastName"].ToString(),
                 };
-            }            
+            }
+            else {
+                retVal.DisplayName = "Not Found";
+            }
             sqlConnection1.Close();
             return retVal;
         }
@@ -72,6 +76,7 @@ namespace FiveColorApi.Repository
             cmd.Parameters.AddWithValue("@DisplayName", displayName);
             cmd.Parameters.AddWithValue("@FirstName", firstName);
             cmd.Parameters.AddWithValue("@LastName", lastName);
+            cmd.Parameters.AddWithValue("@ImageUrl", "");
             cmd.Parameters.AddWithValue("@Id", id);
             sqlConnection1.Open();
             cmd.ExecuteNonQuery();

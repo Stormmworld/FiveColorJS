@@ -4,6 +4,7 @@
   "dependencies": {
     "express": "^4.16.2",
     "global": "^4.3.2",
+    "node-fetch": "^2.1.2",
     "nodemon": "^1.17.3",
     "socket.io": "^2.1.0"
   },

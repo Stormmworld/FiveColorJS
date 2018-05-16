@@ -11,6 +11,10 @@
     background-color: black;
     color: whitesmoke;
 }
+.chatHeader{
+    background-color: black;
+    color: whitesmoke;
+}
 
 .lobbyContainer{
     background-color: darkslategrey;
@@ -44,7 +48,7 @@
 
 .chatMessagebox{
     height: 40px;
-    width: 90%;
+    width: 80%;
 }
 
 .messageWindowContainer{
