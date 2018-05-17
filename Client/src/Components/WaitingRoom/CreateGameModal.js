@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap'
-import ModalComponent from './ModalComponent.js'
-import '../StyleSheets/CreateGameModal.css';
+import ModalComponent from '../ModalComponent.js'
+import '../../StyleSheets/CreateGameModal.css';
 
 class CreateGameModal extends Component {
     constructor(props) {

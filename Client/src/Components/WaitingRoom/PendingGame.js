@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap'
-import '../StyleSheets/PendingGame.css';
+import '../../StyleSheets/PendingGame.css';
 
 class PendingGame extends Component {
     constructor(props) {
         super(props);
     };
-
-    StartGame(gameId){
-        this.props.onStartGame(this.props.Game.Id);
-    }
-
-    JoinGame(gameId){
-        this.props.onJoinGame(this.props.Game.Id);
-    }
 
     LeaveGame(gameId){
         this.props.onLeaveGame(this.props.Game.Id);

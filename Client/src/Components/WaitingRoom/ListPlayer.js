@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col } from 'react-bootstrap'
-import '../StyleSheets/ListPlayer.css';
+import '../../StyleSheets/ListPlayer.css';
 
 const ListPlayer = (props) => {
     return (

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CreatePlayerModal from './CreatePlayerModal';
 import Playfield from './Playfield.js';
-import WaitingRoom from './WaitingRoom';
+import WaitingRoom from './WaitingRoom/WaitingRoom';
 import '../StyleSheets/App.css';
 import openSocket from 'socket.io-client';
 
@@ -57,6 +57,7 @@ class App extends Component {
   onCreatePlayerClosed() {
     this.setState({ showCreatePlayer: false });
   }
+
   render() {
     return (
       <div className="container-fluid edgeless" >
@@ -66,7 +67,7 @@ class App extends Component {
           ChatMessages={this.state.ChatMessages}
           ChatPlayers={this.state.ChatPlayers}
           CreateGame={this.onCreateGame.bind(this)}
-          pendingGames={this.state.PendingGames}
+          PendingGames={this.state.PendingGames}
           onJoinGame={this.onJoinGame.bind(this)}
           onStartGame={this.onStartGame.bind(this)}
           onLeaveGame={this.onLeaveGame.bind(this)} />

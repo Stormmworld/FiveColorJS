@@ -1,0 +1,14 @@
+
+.createGameButton{
+    padding: 0px 15px;
+    font-size: 15px;
+    border: 1px;
+    border-color: black;
+    color: white;
+    background-color: green;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 20%;
+    margin-left: 10px;
+}
