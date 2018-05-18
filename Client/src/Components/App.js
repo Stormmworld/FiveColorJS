@@ -11,6 +11,7 @@ class App extends Component {
 
     this.state = {
       PlayerName: '',
+      Player: {},
       socket: openSocket('http://localhost:5001'),
       ChatMessages: [],
       ChatPlayers: [],
@@ -19,7 +20,19 @@ class App extends Component {
     }
 
     this.state.socket.on('messages', messages => { this.setState({ ChatMessages: messages }) });
-    this.state.socket.on('chatPlayers', players => { this.setState({ ChatPlayers: players }) });
+    this.state.socket.on('chatPlayers', players => {
+      var player = undefined;
+      if (players)
+        for (var i = 0; i < players.length > 0; i++)
+          if (players[i].Name === this.state.PlayerName) {
+            player = players[i];
+            break;
+          }
+      this.setState({
+        ChatPlayers: players,
+        Player: player,
+      })
+    });
     this.state.socket.on('pendingGames', games => { this.setState({ PendingGames: games }) });
     this.state.socket.on('createPlayer', name => { this.setState({ showCreatePlayer: (this.state.PlayerName === name), createPlayerName: name }) });
   }
@@ -60,8 +73,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container-fluid edgeless" >
-        <WaitingRoom 
+      <div className="container-fluid" >
+        <WaitingRoom
+          Player={this.state.Player}
           PlayerName={this.state.PlayerName}
           sendMessage={this.onSendMessage.bind(this)}
           ChatMessages={this.state.ChatMessages}
@@ -71,7 +85,12 @@ class App extends Component {
           onJoinGame={this.onJoinGame.bind(this)}
           onStartGame={this.onStartGame.bind(this)}
           onLeaveGame={this.onLeaveGame.bind(this)} />
-        <CreatePlayerModal show={this.state.showCreatePlayer} onCreatePlayer={this.onCreatePlayer.bind(this)} onCreatePlayerClosed={this.onCreatePlayerClosed.bind(this)} displayName={this.state.PlayerName} />
+        <CreatePlayerModal
+          show={this.state.showCreatePlayer}
+          onCreatePlayer={this.onCreatePlayer.bind(this)}
+          onCreatePlayerClosed={this.onCreatePlayerClosed.bind(this)}
+          displayName={this.state.PlayerName}
+        />
       </div>
     );
   }

@@ -11,8 +11,10 @@ namespace FiveColorApi.Repository
     public class PlayerRepository
     {
         #region Constants
+        public static string CONNECTIONSTRING { get { return System.Configuration.ConfigurationManager.AppSettings["SqlConnectionString"]; } }
         //const string CONNECTIONSTRING = "Data Source=HPPROLIANT;Initial Catalog=MTG;User Id=Sql_Mtg;Password = Mag!c;";
-        const string CONNECTIONSTRING = @"Server=localhost\SQLEXPRESS;Database=MTG;Trusted_Connection=True;";
+        //const string CONNECTIONSTRING = @"Server=localhost\SQLEXPRESS;Database=MTG;Trusted_Connection=True;";
+
         #endregion
 
         #region Methods

@@ -20,14 +20,12 @@ class RightSidebar extends Component {
     }
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateHeights.bind(this));
-    }
-    
+    }    
     updateHeights() {
         this.setState({
             playerListHeight: ((window.innerHeight) * 0.35) + 'px',
         });
     }
-
     render() {
         return (
             <Layout type="column">
@@ -37,7 +35,7 @@ class RightSidebar extends Component {
                 </Col>
                     <Col className="edgeless center-content name-container scrollable" xs={12} sm={12} md={12} lg={12}>
                         {this.props.chatPlayers.map((player) => (
-                            <ListPlayer xs={12} sm={12} md={12} lg={12} playerName={player} />
+                            <ListPlayer xs={12} sm={12} md={12} lg={12} playerName={player.Name} />
                         ))}
                     </Col>
                 </Fixed>

@@ -35,11 +35,11 @@ function reset() {
 }
 
 io.on('connection', function (socket) {
-  waitingRoom.Players.push({ Name: "Player " + (waitingRoom.Players.length + 1), Socket: socket, Status: "Lobby", Data: null });
+  waitingRoom.Players.push({ Name: "Player " + (waitingRoom.Players.length + 1), SocketId: socket.id, Status: "Lobby", Data: null });
 
   socket.on('disconnect', function () {
     for (i = 0; i < waitingRoom.Players.length; i++) {
-      if (waitingRoom.Players[i].Socket === socket) {
+      if (waitingRoom.Players[i].SocketId === socket.id) {
         waitingRoom.Players.splice(i, 1);
         break;
       }
@@ -48,12 +48,12 @@ io.on('connection', function (socket) {
   })
 
   socket.on('playerName', function (name) {
-    var player = findPlayer(socket);
+    var player = findPlayer(socket.id);
     getPlayerData(name, player);
   })
 
   socket.on('CreateGame', function (newGame) {
-    var player = findPlayer(socket);
+    var player = findPlayer(socket.id);
     newGame.Players = [];
     newGame.Id = guid();
     waitingRoom.Games.push(newGame);
@@ -62,22 +62,27 @@ io.on('connection', function (socket) {
   })
 
   socket.on('onCreatePlayer', function (newPlayer) {
-    var player = findPlayer(socket);
+    var player = findPlayer(socket.id);
     createNewPlayer(newPlayer.DisplayName, newPlayer.FirstName, newPlayer.LastName, player);
   })
 
   socket.on('JoinGame', function (gameId) {
-    var player = findPlayer(socket);
-    console.log(player.data.DisplayName + 'joining game ' + gameId);
-    if (player.gameId !== undefined && player.gameId !== null) {
-      removePlayerFromGame(player);
+    try{
+      var player = findPlayer(socket.id);
+      if (player.gameId !== undefined && player.gameId !== null) {
+        removePlayerFromGame(player);
+      }
+      addPlayerToGame(player, gameId);
+      io.emit('pendingGames', waitingRoom.Games);
+
     }
-    addPlayerToGame(player, gameId);
-    io.emit('pendingGames', waitingRoom.Games);
+    catch(err){
+      console.log(err.message);
+    }
   })
 
   socket.on('leaveGame', function (gameName) {
-    var player = findPlayer(socket);
+    var player = findPlayer(socket.id);
     removePlayerFromGame(player);
     io.emit('pendingGames', waitingRoom.Games);
   })
@@ -90,25 +95,14 @@ io.on('connection', function (socket) {
   socket.on('sendMessage', function (message) {
     let date = new Date();
     let time = date.getHours().toString().padStart(2, "0") + ':' + date.getMinutes().toString().padStart(2, "0") + ':' + date.getSeconds().toString().padStart(2, "0");
-    for (i = 0; i < waitingRoom.Players.length; i++) {
-      if (waitingRoom.Players[i].Socket === socket) {
-        //waitingRoom.Messages.push({Name: waitingRoom.Players[i].Name, Message: message});
-        waitingRoom.Messages.splice(0, 0, { Name: waitingRoom.Players[i].Name, Message: message, Time: time });
-        break;
-      }
-    }
-
+    var player = findPlayer(socket.id);
+    waitingRoom.Messages.splice(0, 0, { Name: player.Name, Message: message, Time: time });
     io.emit('messages', waitingRoom.Messages);
   })
 })
 
 function sendChatRoomPlayers() {
-  let chatPlayers = [];
-  for (i = 0; i < waitingRoom.Players.length; i++) {
-    if (waitingRoom.Players[i].Status === "Lobby")
-      chatPlayers.push(waitingRoom.Players[i].Name);
-  }
-  io.emit('chatPlayers', chatPlayers);
+  io.emit('chatPlayers', waitingRoom.Players); //chatPlayers);
   io.emit('messages', waitingRoom.Messages);
   io.emit('pendingGames', waitingRoom.Games);
 }
@@ -122,9 +116,9 @@ function guid() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
-function findPlayer(socket) {
+function findPlayer(socketid) {
   for (i = 0; i < waitingRoom.Players.length; i++) {
-    if (waitingRoom.Players[i].Socket === socket) {
+    if (waitingRoom.Players[i].SocketId === socketid) {
       return waitingRoom.Players[i]
     }
   }
@@ -142,7 +136,7 @@ function addPlayerToGame(player, gameId) {
 
 function removePlayerFromGame(player) {
   for (i = 0; i < waitingRoom.Games.length; i++) {
-    if (waitingRoom.Games[i].Id === gameId) {
+    if (waitingRoom.Games[i].Id === player.gameId) {
       var index = waitingRoom.Games[i].Players.indexOf(player.Name);
       waitingRoom.Games[i].Players.splice(index, 1);
     }

@@ -7,8 +7,8 @@ class PendingGame extends Component {
         super(props);
     };
 
-    LeaveGame(gameId){
-        this.props.onLeaveGame(this.props.Game.Id);
+    JoinGame(gameId){
+        this.props.onJoinGame(this.props.Game.Id);
     }
 
     render() {
@@ -27,7 +27,7 @@ class PendingGame extends Component {
                     <Col className="edgeless Right-content pendingGameLife" xs={6} sm={6} md={6} lg={6}>Life: {this.props.Game.BaseHitpoints}</Col>
                     <Col className="edgeless Left-content pendingGameFormat" xs={6} sm={6} md={6} lg={6}>{this.props.Game.Format}</Col>
                     <Col className="edgeless Right-content" xs={6} sm={6} md={6} lg={6}>
-                        {!currentGame && !maxPlayers && <button className="pendingGameJoinButton" onClick={()=> this.JoinGame.bind(this)}>Join</button>}
+                        {!currentGame && !maxPlayers && <button className="pendingGameJoinButton" onClick={this.JoinGame.bind(this)}>Join</button>}
                     </Col>
                 </Col>
             </Col>
