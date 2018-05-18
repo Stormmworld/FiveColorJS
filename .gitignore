@@ -33,3 +33,4 @@ _ReSharper.*
 bin
 obj
 packages
+/Api/.vs/FiveColorApi/v15/Server/sqlite3/storage.ide
