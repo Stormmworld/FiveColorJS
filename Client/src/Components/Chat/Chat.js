@@ -25,8 +25,8 @@ class Chat extends Component {
                     Signed in as {this.props.PlayerName}
                 </Fixed>
                 <Flex className="content scrollable">
-                    {this.props.ChatMessages.map((message, index) => (
-                        <span style={{ display: 'block' }} key={index}> ({message.Time}) {message.Name} : {message.Message} </span>
+                    {this.props.ChatMessages && this.props.ChatMessages.length > 0 && this.props.ChatMessages.map((message, index) => (
+                        <span style={{ display: 'block' }} key={index}> ({message.Timestamp}) {message.PlayerName} : {message.Message} </span>
                     ))}
                 </Flex>
                 <Fixed className="footer">

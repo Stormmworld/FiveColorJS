@@ -60,6 +60,7 @@ namespace FiveColorApi.Repository
                     FirstName = reader["FirstName"].ToString(),
                     LastName = reader["LastName"].ToString(),
                 };
+                retVal.Success = retVal.DisplayName != "Not found";
             }
             else {
                 retVal.DisplayName = "Not Found";

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using FiveColorApi.Classes.Request;
+using FiveColorApi.Repository;
 
 namespace FiveColorApi.Model
 {
@@ -22,6 +23,15 @@ namespace FiveColorApi.Model
         public List<PlayerDetails> Players { get; set; }
         #endregion
 
+        #region Constructors
+        public WaitingRoom()
+        {
+            Games = new List<PendingGame>();
+            Messages = new List<ChatMessage>();
+            Players = new List<PlayerDetails>();
+        }
+        #endregion
+
         #region Methods
         public void AddGame(CreateGameRequest request)
         {
@@ -31,6 +41,7 @@ namespace FiveColorApi.Model
             if(activeGame != null)
                 activeGame.Players.RemoveAll(o => o.Id == player.Id);
             newGame.Players.Add(new GamePlayer(player));
+            Games.Add(newGame);
         }
         public void AddMessage(int playerId, string message) {
             PlayerDetails player = Players.FirstOrDefault(o => o.Id == playerId);
@@ -54,7 +65,10 @@ namespace FiveColorApi.Model
         }
         public static WaitingRoom GetWaitingRoom()
         {
-            return (WaitingRoom)MemoryCacher.GetValue(WaitingRoomKey);
+            WaitingRoom retVal = (WaitingRoom)MemoryCacher.GetValue(WaitingRoomKey);
+            if (retVal == null)
+                retVal = new WaitingRoom();
+            return retVal;
         }
         public void LeaveCurrentGame(int playerId)
         {
@@ -75,16 +89,30 @@ namespace FiveColorApi.Model
                     joinGame.Players.Add(new GamePlayer(player));
             }
         }
-        public void RemovePlayer(int playerId)
+        public void RemovePlayer(string socketId)
         {
-            Players.RemoveAll(o => o.Id == playerId);
-            PendingGame activeGame = Games.FirstOrDefault(o => o.Players.Exists(p => p.Id == playerId));
+            Players.RemoveAll(o => o.SocketId == socketId);
+            PendingGame activeGame = Games.FirstOrDefault(o => o.Players.Exists(p => p.SocketId == socketId));
             if(activeGame !=null)
-                activeGame.Players.RemoveAll(o => o.Id == playerId);
+                activeGame.Players.RemoveAll(o => o.SocketId == socketId);
         }
         public void SaveWaitingRoom()
         {
             MemoryCacher.Replace(WaitingRoomKey, this, DateTimeOffset.UtcNow.AddHours(1));
+        }
+        public void UpdatePlayer(UpdatePlayerRequest request)
+        {
+            PlayerDetails player = Players.FirstOrDefault(o => o.SocketId == request.SocketId);
+            if (player != null)
+            {
+                PlayerDetails dbPlayer = PlayerRepository.GetPlayer(request.Name);
+                if (dbPlayer.DisplayName == "Not Found")
+                    throw new Exception("Player not found in database");
+                player.DisplayName = dbPlayer.DisplayName;
+                player.FirstName = dbPlayer.FirstName;
+                player.Id = dbPlayer.Id;
+                player.LastName = dbPlayer.LastName;
+            }
         }
         #endregion
     }

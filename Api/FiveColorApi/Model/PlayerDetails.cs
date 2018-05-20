@@ -14,5 +14,7 @@ namespace FiveColorApi.Model
         public string LastName { get; set; }
         [JsonProperty(PropertyName = "SocketId")]
         public string SocketId { get; set; }
+        [JsonProperty(PropertyName = "Success")]
+        public bool Success { get; set; }
     }
 }

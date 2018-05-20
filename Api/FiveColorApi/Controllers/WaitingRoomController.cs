@@ -7,7 +7,7 @@ namespace FiveColorApi.Controllers
 {
     public class WaitingRoomController : ApiController
     {
-        [HttpPost]
+        [HttpGet]
         public WaitingRoomMessagesResponse AddMessage([FromUri] ChatMessageRequest request)
         {            
             WaitingRoom waitingRoom = WaitingRoom.GetWaitingRoom();
@@ -16,12 +16,12 @@ namespace FiveColorApi.Controllers
             return new WaitingRoomMessagesResponse() { Messages = waitingRoom.Messages };
         }
         [HttpPost]
-        public WaitingRoomPlayersResponse AddPlayer([FromUri] AddChatPlayerRequest request)
+        public WaitingRoomResponse AddChatPlayer([FromBody] AddChatPlayerRequest request)
         {
             WaitingRoom waitingRoom = WaitingRoom.GetWaitingRoom();
             waitingRoom.AddPlayer(request);
             waitingRoom.SaveWaitingRoom();
-            return new WaitingRoomPlayersResponse() { Players = waitingRoom.Players};
+            return new WaitingRoomResponse() { WaitingRoom = waitingRoom };
         }
         [HttpPost]
         public WaitingRoomGamesResponse CreateNewGame([FromBody] CreateGameRequest request)
@@ -34,9 +34,9 @@ namespace FiveColorApi.Controllers
         [HttpGet]
         public WaitingRoomResponse GetWaitingRoom()
         {
-            return new WaitingRoomResponse(WaitingRoom.GetWaitingRoom());
+            return new WaitingRoomResponse() { WaitingRoom=WaitingRoom.GetWaitingRoom() };
         }
-        [HttpPost]
+        [HttpGet]
         public WaitingRoomGamesResponse JoinGame([FromUri] JoinGameRequest request)
         {
             WaitingRoom waitingRoom = WaitingRoom.GetWaitingRoom();
@@ -53,12 +53,21 @@ namespace FiveColorApi.Controllers
             return new WaitingRoomGamesResponse() { Games = waitingRoom.Games };
         }
         [HttpPost]
-        public WaitingRoomPlayersResponse RemovePlayer(int playerId)
+        public WaitingRoomPlayersResponse RemovePlayer([FromUri] string socketId)
         {
             WaitingRoom waitingRoom = WaitingRoom.GetWaitingRoom();
-            waitingRoom.RemovePlayer(playerId);
+            waitingRoom.RemovePlayer(socketId);
             waitingRoom.SaveWaitingRoom();
             return new WaitingRoomPlayersResponse() { Players = waitingRoom.Players };
         }
+        [HttpPost]
+        public WaitingRoomPlayersResponse UpdatePlayer(UpdatePlayerRequest request)
+        {
+            WaitingRoom waitingRoom = WaitingRoom.GetWaitingRoom();
+            waitingRoom.UpdatePlayer(request);
+            waitingRoom.SaveWaitingRoom();
+            return new WaitingRoomPlayersResponse() { Players = waitingRoom.Players };
+        }
+
     }
 }

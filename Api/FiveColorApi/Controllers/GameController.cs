@@ -19,7 +19,7 @@ namespace FiveColorApi.Controllers
             {
                 Phase = new Phase(),
                 Id = Guid.NewGuid(),
-                Name = request.GameName,
+                Name = request.Name,
                 Status = Status.WaitingRoom
             };
             MemoryCacher.Replace(newGame.Id.ToString(), newGame, DateTimeOffset.UtcNow.AddHours(1));

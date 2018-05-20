@@ -34,8 +34,8 @@ class RightSidebar extends Component {
                         Players in Lobby
                 </Col>
                     <Col className="edgeless center-content name-container scrollable" xs={12} sm={12} md={12} lg={12}>
-                        {this.props.chatPlayers.map((player) => (
-                            <ListPlayer xs={12} sm={12} md={12} lg={12} playerName={player.Name} />
+                        {this.props.chatPlayers && this.props.chatPlayers.map((player) => (
+                            <ListPlayer xs={12} sm={12} md={12} lg={12} playerName={player.DisplayName} />
                         ))}
                     </Col>
                 </Fixed>
@@ -49,7 +49,7 @@ class RightSidebar extends Component {
                         </Col>
                     </Col>
                     <Col className="edgeless center-content name-container scrollable" xs={12} sm={12} md={12} lg={12}>
-                        {this.props.pendingGames.map((game) => (<PendingGame Game={game} onJoinGame={this.props.onJoinGame} />))}
+                        {this.props.pendingGames && this.props.pendingGames.map((game) => (<PendingGame Game={game} onJoinGame={this.props.onJoinGame} />))}
                     </Col>
                 </Flex>
             </Layout>

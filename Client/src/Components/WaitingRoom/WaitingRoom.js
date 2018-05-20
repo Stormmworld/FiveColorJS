@@ -28,25 +28,6 @@ class WaitingRoom extends Component {
         this.setState({ showCreateGameModal: true });
     }
 
-    renderGameRoom(props) {
-        if(props === undefined || props.Player === undefined|| props.PendingGames === undefined)
-        return null;
-        let pendingGames =  props.PendingGames;
-        let gameId = props.Player.gameId;
-        for (var gameIndex = 0; gameIndex < pendingGames.length; gameIndex++)
-            if (pendingGames[gameIndex].Id === gameId)
-                return (
-                    <Fixed className="footer">
-                        <GameRoom 
-                            onReadyGame={props.onReadyGame} 
-                            onLeaveGame={props.onLeaveGame} 
-                            Game={pendingGames[gameIndex]}
-                            Player={props.Player} />
-                    </Fixed>
-                );
-        return null;
-    }
-
     render() {
         return (
             <Layout type="column">
@@ -55,15 +36,26 @@ class WaitingRoom extends Component {
                 </Fixed>
                 <Flex className="content">
                     <Layout type="row">
-                        <Flex className="content messageWindowContainer">
-                            <Chat PlayerName={this.props.PlayerName} sendMessage={this.props.sendMessage} ChatMessages={this.props.ChatMessages} />
+                        <Flex className="content">
+                            <Layout type="column">
+                                <Flex className="content messageWindowContainer">
+                                    <Chat PlayerName={this.props.Player.DisplayName} sendMessage={this.props.onSendMessage} ChatMessages={this.props.ChatMessages} />
+                                </Flex>
+                                <Fixed className="footer">
+                                    {this.props.MyGame && this.props.MyGame.Id && 
+                                    <GameRoom 
+                                    Game={this.props.MyGame}
+                                    onReadyGame={this.props.onReadyGame}
+                                    onLeaveGame={this.props.onLeaveGame}
+                                    Player={this.props.Player}/>}
+                                </Fixed>
+                            </Layout>
                         </Flex>
                         <Fixed className="sidebar waitingRoomSidebar ">
                             <RightSidebar onCreateGameClicked={this.onCreateGameClicked.bind(this)} pendingGames={this.props.PendingGames} chatPlayers={this.props.ChatPlayers} onJoinGame={this.props.onJoinGame.bind(this)} />
                         </Fixed>
                     </Layout>
                 </Flex>
-                {this.renderGameRoom(this.props)}
                 <CreateGameModal show={this.state.showCreateGameModal} onCreateGame={this.onCreateGame.bind(this)} createGameClosed={this.closeCreateGame.bind(this)} />
             </Layout >
         );

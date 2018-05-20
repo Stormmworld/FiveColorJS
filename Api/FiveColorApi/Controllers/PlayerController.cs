@@ -11,14 +11,17 @@ namespace FiveColorApi.Controllers
         [HttpGet]
         public Model.PlayerDetails CreatePlayer([FromUri] CreatePlayerDetailRequest request)
         {
-            return PlayerRepository.CreatePlayer(request.DisplayName, request.FirstName, request.LastName);
+            Model.PlayerDetails retVal = PlayerRepository.CreatePlayer(request.DisplayName, request.FirstName, request.LastName);
+            retVal.SocketId = request.SocketId;
+            return retVal;
         }
 
-        //http://localhost:5000/api/Player/GetPlayer?Name=stormm
         [HttpGet]
         public Model.PlayerDetails GetPlayer([FromUri] GetPlayerDetailRequest request)
         {
-            return PlayerRepository.GetPlayer(request.Name);
+            Model.PlayerDetails retVal = PlayerRepository.GetPlayer(request.Name);
+            retVal.SocketId = request.SocketId;
+            return retVal;
         }
 
         [HttpGet]

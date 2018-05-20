@@ -10,8 +10,8 @@ class App extends Component {
     super(props)
 
     this.state = {
-      PlayerName: '',
       Player: {},
+      MyGame: {},
       socket: openSocket('http://localhost:5001'),
       ChatMessages: [],
       ChatPlayers: [],
@@ -19,43 +19,54 @@ class App extends Component {
       showCreatePlayer: false,
     }
 
-    this.state.socket.on('messages', messages => { this.setState({ ChatMessages: messages }) });
-    this.state.socket.on('chatPlayers', players => {
-      var player = undefined;
-      if (players)
-        for (var i = 0; i < players.length > 0; i++)
-          if (players[i].Name === this.state.PlayerName) {
-            player = players[i];
-            break;
-          }
-      this.setState({
-        ChatPlayers: players,
-        Player: player,
-      })
+    this.state.socket.on('messages', messages => {
+      //alert('messages' + messages);
+      this.setState({ ChatMessages: messages })
     });
-    this.state.socket.on('pendingGames', games => { this.setState({ PendingGames: games }) });
+    this.state.socket.on('chatPlayers', players => {
+      //alert('chat players' + players);
+      this.setState({ ChatPlayers: players })
+    });
+    this.state.socket.on('PlayerData', player => {
+      this.setState({ Player: player });
+      this.state.socket.emit('AddChatPlayer', player);
+    });
+    this.state.socket.on('pendingGames', games => {
+      //alert('pending games' + games);
+      if (games && games.length > 0)
+        for (var i = 0; i < games.length; i++)
+          if (games[i] && games[i].Players && games[i].Players.length > 0)
+            for (var j = 0; j < games[i].Players.length; j++)
+              if (games[i].Players[j].Id == this.state.Player.Id) {
+                this.setState({ MyGame: games[i] });
+                j = games[i].Players.length;
+                i = games.length;
+              }
+      this.setState({ PendingGames: games });
+    });
     this.state.socket.on('createPlayer', name => { this.setState({ showCreatePlayer: (this.state.PlayerName === name), createPlayerName: name }) });
+    window.addEventListener("beforeunload", function (e) {
+      this.state.socket.emit('disconnect', this.state.Player.Id);
+    }, false);
   }
 
   componentDidMount() {
     var playerName = window.prompt('Your name:', '');
     while (playerName === '' || !playerName)
       playerName = window.prompt('Name:', '');
-
-    this.setState({ PlayerName: playerName });
-    this.state.socket.emit('playerName', playerName);
+    this.state.socket.emit('LogIn', playerName);
   }
 
   onCreateGame(name, format, playerCount, baseHitpoints) {
-    this.state.socket.emit('CreateGame', { Name: name, Format: format, PlayerCount: playerCount, BaseHitpoints: baseHitpoints });
+    this.state.socket.emit('CreateGame', { Name: name, Format: format, PlayerCount: playerCount, BaseHitpoints: baseHitpoints, PlayerId: this.state.Player.Id });
   }
 
   onSendMessage(message) {
-    this.state.socket.emit('sendMessage', message);
+    this.state.socket.emit('sendMessage', { Message: message, PlayerId: this.state.Player.Id });
   }
 
   onJoinGame(gameId) {
-    this.state.socket.emit('JoinGame', gameId);
+    this.state.socket.emit('JoinGame', { GameId: gameId, PlayerId: this.state.Player.Id });
   }
   onLeaveGame(gameId) {
     this.state.socket.emit('leaveGame', gameId);
@@ -74,17 +85,18 @@ class App extends Component {
   render() {
     return (
       <div className="container-fluid" >
-        <WaitingRoom
-          Player={this.state.Player}
-          PlayerName={this.state.PlayerName}
-          sendMessage={this.onSendMessage.bind(this)}
-          ChatMessages={this.state.ChatMessages}
-          ChatPlayers={this.state.ChatPlayers}
-          CreateGame={this.onCreateGame.bind(this)}
-          PendingGames={this.state.PendingGames}
-          onJoinGame={this.onJoinGame.bind(this)}
-          onStartGame={this.onStartGame.bind(this)}
-          onLeaveGame={this.onLeaveGame.bind(this)} />
+        {this.state.Player.Id > 0 &&
+          <WaitingRoom
+            Player={this.state.Player}
+            onSendMessage={this.onSendMessage.bind(this)}
+            ChatMessages={this.state.ChatMessages}
+            ChatPlayers={this.state.ChatPlayers}
+            CreateGame={this.onCreateGame.bind(this)}
+            PendingGames={this.state.PendingGames}
+            MyGame = {this.state.MyGame}
+            onJoinGame={this.onJoinGame.bind(this)}
+            onStartGame={this.onStartGame.bind(this)}
+            onLeaveGame={this.onLeaveGame.bind(this)} />}
         <CreatePlayerModal
           show={this.state.showCreatePlayer}
           onCreatePlayer={this.onCreatePlayer.bind(this)}

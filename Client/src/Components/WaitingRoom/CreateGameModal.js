@@ -16,6 +16,7 @@ class CreateGameModal extends Component {
 
     onCreateGameClicked() {
         this.props.onCreateGame(this.state.Name, this.state.Format, this.state.PlayerCount, this.state.BaseHitpoints);
+        this.setState({ Format: 'none', Name: '', PlayerCount: 0, BaseHitpoints: 20 });
     }
 
     formatSelectionChanged() {

@@ -120,6 +120,7 @@
     <Compile Include="Classes\Request\RemovePlayerDetailRequest.cs" />
     <Compile Include="Classes\Request\RetrieveGameRequest.cs" />
     <Compile Include="Classes\Request\SelectDeckRequest.cs" />
+    <Compile Include="Classes\Request\UpdatePlayerRequest.cs" />
     <Compile Include="Classes\Response\WaitingRoomGamesResponse.cs" />
     <Compile Include="Classes\Response\WaitingRoomMessagesResponse.cs" />
     <Compile Include="Classes\Response\WaitingRoomPlayersResponse.cs" />
