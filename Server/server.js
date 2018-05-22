@@ -2,15 +2,17 @@ const fetch = require('node-fetch');
 const io = require('socket.io')()
 
 io.on('connection', function (socket) {
-  socket.on('disconnect', function (playerId) {
-      fetch("http://localhost:5002/api/WaitingRoom/RemovePlayer?socketId=" + socket.id)
-        .then((resp) => resp.json())
-        .then(function (data) {
-          //console.log('remaining players' + data); 
-          io.emit('chatPlayers', data); 
-        }
-        )
-        .catch(function (e) { console.log('error fetching player data' + e); });
+  //socket.on('disconnect', function (playerId) {
+  socket.on('disconnect', function () {
+    //console.log('removing player id: ' + socket.id);
+    fetch("http://localhost:5002/api/WaitingRoom/RemovePlayer?socketId=" + socket.id)
+      .then((resp) => resp.json())
+      .then(function (data) {
+        //console.log('remaining players' + data.Players);
+        io.emit('chatPlayers', data.Players);
+      }
+      )
+      .catch(function (e) { console.log('error fetching player data' + e); });
   })
 
   socket.on('LogIn', function (playerName) {
@@ -18,7 +20,9 @@ io.on('connection', function (socket) {
     fetch("http://localhost:5002/api/Player/GetPlayer?Name=" + playerName + "&SocketId=" + socket.id)
       .then((resp) => resp.json())
       .then(function (data) {
-        if (data.Success === false) { socket.emit('createPlayer', playerName); }
+        if (data.Success === false) {
+          socket.emit('createPlayer', playerName);
+        }
         else { socket.emit('PlayerData', data); }
       })
       .catch(function (e) {
@@ -28,7 +32,7 @@ io.on('connection', function (socket) {
 
   socket.on('AddChatPlayer', function (player) {
     //console.log(player);
-    fetch('http://localhost:5002/api/WaitingRoom/AddChatPlayer', {  
+    fetch('http://localhost:5002/api/WaitingRoom/AddChatPlayer', {
       method: 'post',
       body: JSON.stringify(player)
     })
@@ -57,12 +61,12 @@ io.on('connection', function (socket) {
       .catch(function (e) { console.log('error creating game ' + e); });;
   })
 
-  socket.on('CreatePlayer', function (newPlayer) {
+  socket.on('onCreatePlayer', function (newPlayer) {
     fetch("http://localhost:5002/api/Player/CreatePlayer?DisplayName=" + newPlayer.DisplayName + "&FirstName=" + newPlayer.FirstName + "&LastName=" + newPlayer.LastName)
       .then((resp) => resp.json())
       .then(function (data) {
-        if (data.DisplayName === "Not Found") { io.emit('createPlayer', name); }
-        else { io.emit('chatPlayers', data.Players); }
+        console.log(data);
+        socket.emit('PlayerData', data);
       })
       .catch(function (e) { console.log('error creating player data ' + e); });
   })
@@ -92,8 +96,8 @@ io.on('connection', function (socket) {
       .then((resp) => resp.json())
       .then(function (data) {
         //console.log('Messages: ' + JSON.stringify(data));
-         io.emit('messages', data.Messages); 
-        })
+        io.emit('messages', data.Messages);
+      })
       .catch(function (e) { console.log('error adding newmessage' + e); });;
   })
 })

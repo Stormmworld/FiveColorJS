@@ -52,7 +52,7 @@ namespace FiveColorApi.Controllers
             waitingRoom.SaveWaitingRoom();
             return new WaitingRoomGamesResponse() { Games = waitingRoom.Games };
         }
-        [HttpPost]
+        [HttpGet]
         public WaitingRoomPlayersResponse RemovePlayer([FromUri] string socketId)
         {
             WaitingRoom waitingRoom = WaitingRoom.GetWaitingRoom();

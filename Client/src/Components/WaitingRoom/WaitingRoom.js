@@ -37,17 +37,17 @@ class WaitingRoom extends Component {
                 <Flex className="content">
                     <Layout type="row">
                         <Flex className="content">
-                            <Layout type="column">
+                            <Layout type="column ">
                                 <Flex className="content messageWindowContainer">
                                     <Chat PlayerName={this.props.Player.DisplayName} sendMessage={this.props.onSendMessage} ChatMessages={this.props.ChatMessages} />
                                 </Flex>
                                 <Fixed className="footer">
-                                    {this.props.MyGame && this.props.MyGame.Id && 
-                                    <GameRoom 
-                                    Game={this.props.MyGame}
-                                    onReadyGame={this.props.onReadyGame}
-                                    onLeaveGame={this.props.onLeaveGame}
-                                    Player={this.props.Player}/>}
+                                    {this.props.MyGame && this.props.MyGame.Id &&
+                                        <GameRoom
+                                            Game={this.props.MyGame}
+                                            onReadyGame={this.props.onReadyGame}
+                                            onLeaveGame={this.props.onLeaveGame}
+                                            Player={this.props.Player} />}
                                 </Fixed>
                             </Layout>
                         </Flex>
@@ -56,6 +56,7 @@ class WaitingRoom extends Component {
                         </Fixed>
                     </Layout>
                 </Flex>
+                <Fixed className="footer waitingRoomFooter" />
                 <CreateGameModal show={this.state.showCreateGameModal} onCreateGame={this.onCreateGame.bind(this)} createGameClosed={this.closeCreateGame.bind(this)} />
             </Layout >
         );

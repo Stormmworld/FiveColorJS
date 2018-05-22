@@ -17,6 +17,7 @@ class App extends Component {
       ChatPlayers: [],
       PendingGames: [],
       showCreatePlayer: false,
+      CreatePlayerName:''
     }
 
     this.state.socket.on('messages', messages => {
@@ -32,7 +33,7 @@ class App extends Component {
       this.state.socket.emit('AddChatPlayer', player);
     });
     this.state.socket.on('pendingGames', games => {
-      //alert('pending games' + games);
+      alert('pending games' + games);
       if (games && games.length > 0)
         for (var i = 0; i < games.length; i++)
           if (games[i] && games[i].Players && games[i].Players.length > 0)
@@ -41,13 +42,19 @@ class App extends Component {
                 this.setState({ MyGame: games[i] });
                 j = games[i].Players.length;
                 i = games.length;
+                break;
               }
       this.setState({ PendingGames: games });
     });
-    this.state.socket.on('createPlayer', name => { this.setState({ showCreatePlayer: (this.state.PlayerName === name), createPlayerName: name }) });
-    window.addEventListener("beforeunload", function (e) {
-      this.state.socket.emit('disconnect', this.state.Player.Id);
-    }, false);
+    this.state.socket.on('createPlayer', name => { 
+      this.setState({ 
+        showCreatePlayer: true, 
+        CreatePlayerName: name }) 
+      });
+    // window.addEventListener("beforeunload", function (e) {
+    //   alert(this.state.Player.Id);
+    //   this.state.socket.emit('disconnect', this.state.Player.Id);
+    // }, false);
   }
 
   componentDidMount() {
@@ -56,6 +63,10 @@ class App extends Component {
       playerName = window.prompt('Name:', '');
     this.state.socket.emit('LogIn', playerName);
   }
+
+  // componentWillUnmount(){    
+  //     this.state.socket.emit('disconnect', this.state.Player.Id);
+  // }
 
   onCreateGame(name, format, playerCount, baseHitpoints) {
     this.state.socket.emit('CreateGame', { Name: name, Format: format, PlayerCount: playerCount, BaseHitpoints: baseHitpoints, PlayerId: this.state.Player.Id });
@@ -101,7 +112,7 @@ class App extends Component {
           show={this.state.showCreatePlayer}
           onCreatePlayer={this.onCreatePlayer.bind(this)}
           onCreatePlayerClosed={this.onCreatePlayerClosed.bind(this)}
-          displayName={this.state.PlayerName}
+          displayName={this.state.CreatePlayerName}
         />
       </div>
     );
