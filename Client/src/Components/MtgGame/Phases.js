@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
-import '../StyleSheets/Phases.css';
+import '../../StyleSheets/Phases.css';
 
 class Phases extends Component {
 

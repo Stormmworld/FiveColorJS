@@ -9,6 +9,8 @@ namespace FiveColorApi.Model
         public bool Ready { get; set; }
         [JsonProperty(PropertyName = "Deck")]
         public Deck Deck { get; set; }
+        [JsonProperty(PropertyName = "IsReady")]
+        public bool IsReady { get; set; }
         #endregion
 
         #region Constructors
@@ -18,10 +20,13 @@ namespace FiveColorApi.Model
         }
         public GamePlayer(PlayerDetails playerDetails):this()
         {
-            DisplayName = playerDetails.DisplayName;
-            FirstName = playerDetails.DisplayName;
-            Id = playerDetails.Id;
-            LastName = playerDetails.LastName;
+            if (playerDetails != null)
+            {
+                DisplayName = playerDetails.DisplayName;
+                FirstName = playerDetails.DisplayName;
+                Id = playerDetails.Id;
+                LastName = playerDetails.LastName;
+            }
         }
         #endregion
     }

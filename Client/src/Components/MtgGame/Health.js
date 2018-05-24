@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../StyleSheets/Health.css';
+import '../../StyleSheets/Health.css';
 
 const Health = () => {
     return (

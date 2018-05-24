@@ -12,7 +12,7 @@ namespace FiveColorApi.Model
         [JsonProperty(PropertyName = "Id")]
         public Guid Id {get;set;}
         [JsonProperty(PropertyName = "Format")]
-        public Format Format { get; set; }
+        public string Format { get; set; }
         [JsonProperty(PropertyName = "Name")]
         public string Name { get; set; }
         [JsonProperty(PropertyName = "PlayerCount")]
@@ -21,6 +21,8 @@ namespace FiveColorApi.Model
         public List<GamePlayer> Players { get; set; }
         [JsonProperty(PropertyName = "BaseHitpoints")]
         public int BaseHitpoints { get; set; }
+        [JsonProperty(PropertyName = "StartGame")]
+        public bool StartGame { get; set; }
         #endregion
 
         #region Constructors

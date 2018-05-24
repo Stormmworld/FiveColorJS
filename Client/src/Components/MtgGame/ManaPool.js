@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col } from 'react-bootstrap'
-import '../StyleSheets/ManaPool.css';
+import '../../StyleSheets/ManaPool.css';
 import Mana from './Mana.js'
 
 const ManaPool = function (props) {

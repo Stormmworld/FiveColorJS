@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
-import '../StyleSheets/Playfield.css';
-import * as phasefunctions from '../Scripts/Phases.js'
-import * as stackfunctions from '../Scripts/Stack.js'
-import * as cardfunctions from '../Scripts/Card.js'
-import * as manapoolfunctions from '../Scripts/ManaPool.js'
+import '../../StyleSheets/Playfield.css';
 import Battlefield from './BattleField.js'
 import Library from './Library.js'
 import Graveyard from './Graveyard.js'
@@ -57,137 +53,137 @@ class Playfield extends Component {
         window.removeEventListener("resize", this.updateHeights.bind(this));
     }
     componentWillReceiveProps(nextProps) {
-        if (this.props.deck.length < 1) {
-            var cardData = cardfunctions.DrawCards(7, [], cardfunctions.shuffleDeck(nextProps.deck.Cards, 3))
-            this.setState(
-                {
-                    deckName: nextProps.deck.Name,
-                    deck: cardData.Deck,
-                    hand: cardData.Hand,
-                }
-            )
-        }
+        // if (this.props.deck.length < 1) {
+        //     var cardData = cardfunctions.DrawCards(7, [], cardfunctions.shuffleDeck(nextProps.deck.Cards, 3))
+        //     this.setState(
+        //         {
+        //             deckName: nextProps.deck.Name,
+        //             deck: cardData.Deck,
+        //             hand: cardData.Hand,
+        //         }
+        //     )
+        // }
     }
 
     //Event Handlers
     battleFieldCardClicked(card) {
-        if (card.ManaProduction)
-            this.ManaGenerated(card);
-        this.setState({ battleFieldCards: cardfunctions.TapCard(this.state.battleFieldCards, card) });
+        // if (card.ManaProduction)
+        //     this.ManaGenerated(card);
+        // this.setState({ battleFieldCards: cardfunctions.TapCard(this.state.battleFieldCards, card) });
     }
     CardClickedFromHand(card) {
-        var currentHand = this.state.hand;
-        var landsPlayedThisTurn = this.state.landsPlayedThisTurn;
-        var currentLands = this.state.lands;
-        var currentStack = this.state.stack;
-        var cardIndex = currentHand.findIndex(o => o.Name === card.Name);
-        if (cardfunctions.CheckCardType(card, 'Land')) {
-            if (this.state.landsPlayedThisTurn < this.state.landsPerTurn) {
-                //alert(cardIndex);
-                landsPlayedThisTurn++;
-                currentHand.splice(cardIndex, 1);
-                currentLands.push(card);
-            }
-            else
-                alert('You can only play ' + this.state.landsPerTurn + ' lands per turn.');
-        }
-        else {
-            if (manapoolfunctions.manaPoolSupportsCastingCost(card.ManaCost,this.state.manaPool)) {
-                currentHand.splice(cardIndex, 1);
-                currentStack.push(card);
+        // var currentHand = this.state.hand;
+        // var landsPlayedThisTurn = this.state.landsPlayedThisTurn;
+        // var currentLands = this.state.lands;
+        // var currentStack = this.state.stack;
+        // var cardIndex = currentHand.findIndex(o => o.Name === card.Name);
+        // if (cardfunctions.CheckCardType(card, 'Land')) {
+        //     if (this.state.landsPlayedThisTurn < this.state.landsPerTurn) {
+        //         //alert(cardIndex);
+        //         landsPlayedThisTurn++;
+        //         currentHand.splice(cardIndex, 1);
+        //         currentLands.push(card);
+        //     }
+        //     else
+        //         alert('You can only play ' + this.state.landsPerTurn + ' lands per turn.');
+        // }
+        // else {
+        //     if (manapoolfunctions.manaPoolSupportsCastingCost(card.ManaCost,this.state.manaPool)) {
+        //         currentHand.splice(cardIndex, 1);
+        //         currentStack.push(card);
 
-            }
-        }
+        //     }
+        // }
 
-        this.setState({
-            hand: currentHand,
-            lands: currentLands,
-            landsPlayedThisTurn: landsPlayedThisTurn,
-            stack: currentStack
-        });
+        // this.setState({
+        //     hand: currentHand,
+        //     lands: currentLands,
+        //     landsPlayedThisTurn: landsPlayedThisTurn,
+        //     stack: currentStack
+        // });
     }
     Death() {
-        alert('Game Over, you lose');
+        // alert('Game Over, you lose');
     }
     discardSelected(hand, discard){
-        var currentGraveyard = this.state.graveYard;
-        currentGraveyard.push(discard);
-        this.setState({
-            hand: hand,
-            graveYard: currentGraveyard,
-            showDiscardModal:false,
-        });
+        // var currentGraveyard = this.state.graveYard;
+        // currentGraveyard.push(discard);
+        // this.setState({
+        //     hand: hand,
+        //     graveYard: currentGraveyard,
+        //     showDiscardModal:false,
+        // });
     }
     ManaGenerated(manaProducer) {
-        var currentManaPool = this.state.manaPool;
-        if (manaProducer.ManaProduction.length === 1) {
-            for (var i = 0; i < manaProducer.ManaProduction[0].Quantity; i++)
-                currentManaPool.push(manaProducer.ManaProduction[0].ManaType);
-            this.setState({
-                manaPool: currentManaPool
-            });
-        }
-        else if (manaProducer.ManaProduction.length > 1) {
-            this.setState({
-                manaSelectionCard: manaProducer,
-                showManaSelectionModal: true,
-            });
-        }
+        // var currentManaPool = this.state.manaPool;
+        // if (manaProducer.ManaProduction.length === 1) {
+        //     for (var i = 0; i < manaProducer.ManaProduction[0].Quantity; i++)
+        //         currentManaPool.push(manaProducer.ManaProduction[0].ManaType);
+        //     this.setState({
+        //         manaPool: currentManaPool
+        //     });
+        // }
+        // else if (manaProducer.ManaProduction.length > 1) {
+        //     this.setState({
+        //         manaSelectionCard: manaProducer,
+        //         showManaSelectionModal: true,
+        //     });
+        // }
     }
     manaSelectionclosed(manaselected, card) {
-        var currentManapool = this.state.manaPool;
-        var currentBattlefield = this.state.battleFieldCards;
-        var currentLands = this.state.lands;
-        if (manaselected) {
-            for (var i = 0; i < manaselected.Quantity; i++)
-                currentManapool.push(manaselected.ManaType);
-            if (cardfunctions.CheckCardType(card, 'Land'))
-                currentLands = cardfunctions.TapCard(currentLands, card);
-            else
-                currentBattlefield = cardfunctions.TapCard(currentBattlefield, card);
-        }
-        this.setState({
-            showManaSelectionModal: false,
-            manaPool: currentManapool
-        });
+        // var currentManapool = this.state.manaPool;
+        // var currentBattlefield = this.state.battleFieldCards;
+        // var currentLands = this.state.lands;
+        // if (manaselected) {
+        //     for (var i = 0; i < manaselected.Quantity; i++)
+        //         currentManapool.push(manaselected.ManaType);
+        //     if (cardfunctions.CheckCardType(card, 'Land'))
+        //         currentLands = cardfunctions.TapCard(currentLands, card);
+        //     else
+        //         currentBattlefield = cardfunctions.TapCard(currentBattlefield, card);
+        // }
+        // this.setState({
+        //     showManaSelectionModal: false,
+        //     manaPool: currentManapool
+        // });
     }
     resolveStack() {
-        var resolution = stackfunctions.ResolveStack(this.state.stack, this.state.battleFieldCards, this.state.graveYard);
-        this.setState({
-            stack: resolution.Stack,
-            battleFieldCards: resolution.BattleField,
-            graveYard: resolution.Graveyard
-        });
+        // var resolution = stackfunctions.ResolveStack(this.state.stack, this.state.battleFieldCards, this.state.graveYard);
+        // this.setState({
+        //     stack: resolution.Stack,
+        //     battleFieldCards: resolution.BattleField,
+        //     graveYard: resolution.Graveyard
+        // });
     }
     StepCompleted() {
-        var currentdeck = this.state.deck;
-        var currenthand = this.state.hand;
-        var phaseData = phasefunctions.GetNextPhaseData(this.state.phase, this.state.subphase, this.state.landsPlayedThisTurn);
-        var activateDiscardModal = (phaseData.Phase === 'discard');
-        var cardData = {
-            BattleFieldCards: this.state.battleFieldCards,
-            LandCards: this.state.lands,
-        }
+        // var currentdeck = this.state.deck;
+        // var currenthand = this.state.hand;
+        // var phaseData = phasefunctions.GetNextPhaseData(this.state.phase, this.state.subphase, this.state.landsPlayedThisTurn);
+        // var activateDiscardModal = (phaseData.Phase === 'discard');
+        // var cardData = {
+        //     BattleFieldCards: this.state.battleFieldCards,
+        //     LandCards: this.state.lands,
+        // }
 
 
-        if (phaseData.Subphase === 'untap')
-            cardData = cardfunctions.UntapCards(cardData);
-        if (phaseData.Subphase === 'draw') {
-            var data = cardfunctions.DrawCards(this.state.DrawCount, currenthand, currentdeck);
-            currenthand = data.Hand;
-            currentdeck = data.Deck;
-        }
+        // if (phaseData.Subphase === 'untap')
+        //     cardData = cardfunctions.UntapCards(cardData);
+        // if (phaseData.Subphase === 'draw') {
+        //     var data = cardfunctions.DrawCards(this.state.DrawCount, currenthand, currentdeck);
+        //     currenthand = data.Hand;
+        //     currentdeck = data.Deck;
+        // }
 
-        this.setState({
-            phase: phaseData.Phase,
-            subphase: phaseData.Subphase,
-            landsPlayedThisTurn: phaseData.LandsPlayedThisTurn,
-            battleFieldCards: cardData.BattleFieldCards,
-            lands: cardData.LandCards,
-            hand:currenthand,
-            deck:currentdeck,
-            showDiscardModal: activateDiscardModal,
-        });
+        // this.setState({
+        //     phase: phaseData.Phase,
+        //     subphase: phaseData.Subphase,
+        //     landsPlayedThisTurn: phaseData.LandsPlayedThisTurn,
+        //     battleFieldCards: cardData.BattleFieldCards,
+        //     lands: cardData.LandCards,
+        //     hand:currenthand,
+        //     deck:currentdeck,
+        //     showDiscardModal: activateDiscardModal,
+        // });
     }
     updateHeights() {
         this.setState({

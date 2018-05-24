@@ -10,6 +10,10 @@ namespace FiveColorApi.Model
         public string FirstName { get; set; }
         [JsonProperty(PropertyName = "Id")]
         public int Id { get; set; }
+        [JsonProperty(PropertyName = "IsGamePending")]
+        public bool IsGamePending { get; set; }
+        [JsonProperty(PropertyName = "IsGameActive")]
+        public bool IsGameActive { get; set; }
         [JsonProperty(PropertyName = "LastName")]
         public string LastName { get; set; }
         [JsonProperty(PropertyName = "SocketId")]

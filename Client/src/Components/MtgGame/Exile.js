@@ -1,5 +1,5 @@
 import React from 'react';
-import '../StyleSheets/Exile.css';
+import '../../StyleSheets/Exile.css';
 
 const Exile = (props) => {
     return (

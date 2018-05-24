@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
-import '../StyleSheets/Lands.css';
+import '../../StyleSheets/Lands.css';
 import Card from './Card.js'
 
 const Lands = function(props){

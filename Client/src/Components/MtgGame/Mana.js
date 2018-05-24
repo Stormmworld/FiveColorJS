@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../StyleSheets/Mana.css';
+import '../../StyleSheets/Mana.css';
 
 class Mana extends Component {
 

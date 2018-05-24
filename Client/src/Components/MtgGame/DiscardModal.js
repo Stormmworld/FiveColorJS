@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap'
-import ModalComponent from './ModalComponent.js'
-import '../StyleSheets/DiscardModal.css';
+import ModalComponent from '../ModalComponent.js'
+import '../../StyleSheets/DiscardModal.css';
 import Card from './Card.js';
 
 class DiscardModal extends Component {

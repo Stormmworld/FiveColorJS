@@ -118,6 +118,7 @@
     <Compile Include="Classes\Request\GetPlayerDetailRequest.cs" />
     <Compile Include="Classes\Request\JoinGameRequest.cs" />
     <Compile Include="Classes\Request\ModifyPlayerGetPlayerDetailRequest.cs" />
+    <Compile Include="Classes\Request\PlayerReadyrequest.cs" />
     <Compile Include="Classes\Request\RemovePlayerDetailRequest.cs" />
     <Compile Include="Classes\Request\RetrieveGameRequest.cs" />
     <Compile Include="Classes\Request\SelectDeckRequest.cs" />

@@ -4,7 +4,7 @@ import ListPlayer from './ListPlayer';
 import CreateGameModal from './CreateGameModal';
 import PendingGame from './PendingGame';
 import Mana from './Mana';
-import '../StyleSheets/WaitingRoom.css';
+import '../../StyleSheets/WaitingRoom.css';
 
 class WaitingRoom extends Component {
     constructor(props) {

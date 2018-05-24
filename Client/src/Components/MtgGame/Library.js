@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap'
-import '../StyleSheets/Library.css';
+import '../../StyleSheets/Library.css';
 
 const Library = (props) => {
     return (

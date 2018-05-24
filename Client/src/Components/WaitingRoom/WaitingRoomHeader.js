@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col } from 'react-bootstrap'
-import Mana from '../Mana';
+import Mana from '../MtgGame/Mana';
 import '../../StyleSheets/WaitingRoomHeader.css';
 
 const WaitingRoomHeader = (props) => {

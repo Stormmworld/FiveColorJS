@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ModalComponent from './ModalComponent.js'
-import '../StyleSheets/Mana.css';
+import ModalComponent from '../ModalComponent.js'
+import '../../StyleSheets/Mana.css';
 import ManaSelector from './ManaSelector'
 
 class ManaSelectionModal extends Component {

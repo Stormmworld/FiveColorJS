@@ -68,6 +68,14 @@ namespace FiveColorApi.Controllers
             waitingRoom.SaveWaitingRoom();
             return new WaitingRoomPlayersResponse() { Players = waitingRoom.Players };
         }
+        [HttpPost]
+        public WaitingRoomResponse PlayerReady([FromBody] PlayerReadyrequest request)
+        {
+            WaitingRoom waitingRoom = WaitingRoom.GetWaitingRoom();
+            waitingRoom.PlayerReady(request);
+            waitingRoom.SaveWaitingRoom();
+            return new WaitingRoomResponse() { WaitingRoom = waitingRoom };
+        }
 
     }
 }

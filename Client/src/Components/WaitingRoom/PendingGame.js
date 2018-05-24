@@ -3,10 +3,6 @@ import { Col } from 'react-bootstrap'
 import '../../StyleSheets/PendingGame.css';
 
 class PendingGame extends Component {
-    constructor(props) {
-        super(props);
-    };
-
     JoinGame(gameId){
         this.props.onJoinGame(this.props.Game.Id);
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
 import Card from './Card.js'
-import '../StyleSheets/BattleField.css';
+import '../../StyleSheets/BattleField.css';
 
 class BattleField extends Component {
     constructor(props) {

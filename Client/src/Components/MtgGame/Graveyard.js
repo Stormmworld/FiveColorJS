@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col } from 'react-bootstrap'
-import '../StyleSheets/Graveyard.css';
+import '../../StyleSheets/Graveyard.css';
 
 const Graveyard = (props) => {
     let graveYardImage = 'url(https://media.istockphoto.com/vectors/blank-tombstone-vector-id472277479)';

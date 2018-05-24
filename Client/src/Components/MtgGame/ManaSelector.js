@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
-import '../StyleSheets/ManaSelector.css';
+import '../../StyleSheets/ManaSelector.css';
 import Mana from './Mana.js'
 
 const ManaSelector = function (props) {

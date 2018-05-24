@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
 
   socket.on('AddChatPlayer', function (player) {
     //console.log(player);
-    fetch('http://localhost:5002/api/WaitingRoom/AddChatPlayer', {
+    fetch(apiPath + '/api/WaitingRoom/AddChatPlayer', {
       method: 'post',
       body: JSON.stringify(player)
     })
@@ -51,7 +51,7 @@ io.on('connection', function (socket) {
   })
 
   socket.on('CreateGame', function (newGame) {
-    fetch('http://localhost:5002/api/WaitingRoom/CreateNewGame', {
+    fetch(apiPath + '/api/WaitingRoom/CreateNewGame', {
       method: 'post',
       body: JSON.stringify(newGame)
     })
@@ -85,12 +85,21 @@ io.on('connection', function (socket) {
     fetch(apiPath + "/api/WaitingRoom/LeaveCurrentGame?playerId=" + playerId)
       .then((resp) => resp.json())
       .then(function (data) { io.emit('pendingGames', data.Games); })
-      .catch(function (e) { console.log('error leaving game' + e); });;
+      .catch(function (e) { console.log('error leaving game' + e); });
   })
 
-  socket.on('StartGame', function (gameId) {
-    //remove game from pending, then send out active game notice to all players
-    io.emit('pendingGames', waitingRoom.Games);
+  socket.on('ReadyGame', function (request) {
+    fetch(apiPath + '/api/WaitingRoom/CreateNewGame', {
+      method: 'post',
+      body: JSON.stringify(request)
+    })
+      .then((resp) => resp.json())
+      .then(function (data) { 
+        io.emit('chatPlayers', data.WaitingRoom.Players);
+        io.emit('pendingGames', data.WaitingRoom.Games);
+        io.emit('messages', data.WaitingRoom.Messages);
+      })
+      .catch(function (e) { console.log('error leaving game' + e); });
   })
 
   socket.on('sendMessage', function (request) {

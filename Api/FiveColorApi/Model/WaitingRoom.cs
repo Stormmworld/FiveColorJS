@@ -41,6 +41,8 @@ namespace FiveColorApi.Model
             if(activeGame != null)
                 activeGame.Players.RemoveAll(o => o.Id == player.Id);
             newGame.Players.Add(new GamePlayer(player));
+            player.IsGamePending = true;
+            player.IsGameActive = false;
             Games.Add(newGame);
         }
         public void AddMessage(int playerId, string message) {
@@ -75,6 +77,9 @@ namespace FiveColorApi.Model
             PendingGame activeGame = Games.FirstOrDefault(o => o.Players.Exists(p => p.Id == playerId));
             if (activeGame != null)
                 activeGame.Players.RemoveAll(o => o.Id == playerId);
+            PlayerDetails player = Players.FirstOrDefault(o => o.Id == playerId);
+            player.IsGamePending = false;
+            player.IsGameActive = false;
         }
         public void JoinGame(JoinGameRequest request)
         {
@@ -87,7 +92,24 @@ namespace FiveColorApi.Model
                 PendingGame joinGame = Games.FirstOrDefault(o => o.Id.ToString() == request.GameId);
                 if (joinGame != null)
                     joinGame.Players.Add(new GamePlayer(player));
+                player.IsGamePending = true;
+                player.IsGameActive = false;
             }
+        }
+        public void PlayerReady(PlayerReadyrequest request)
+        {
+            PendingGame activeGame = Games.FirstOrDefault(o => o.Players.Exists(p => p.Id == request.PlayerId));
+            if (activeGame != null)
+            {
+                GamePlayer player = activeGame.Players.FirstOrDefault(o => o.Id == request.PlayerId);
+                if (player != null)
+                    player.IsReady = request.Ready;
+                activeGame.StartGame = (activeGame.Players.Count == activeGame.PlayerCount && activeGame.Players.FirstOrDefault(o => !o.IsReady) == null);
+            }
+        }
+        public void purgeEmptygGames()
+        {
+            Games.RemoveAll(o => o.Players.Count == 0);
         }
         public void purgeOldMessages()
         {
@@ -103,6 +125,7 @@ namespace FiveColorApi.Model
         public void SaveWaitingRoom()
         {
             purgeOldMessages();
+            purgeEmptygGames();
             MemoryCacher.Replace(WaitingRoomKey, this, DateTimeOffset.UtcNow.AddHours(1));
         }
         public void UpdatePlayer(UpdatePlayerRequest request)

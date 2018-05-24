@@ -1,6 +1,5 @@
 import React from 'react';
 import { Col } from 'react-bootstrap'
-import Mana from '../Mana';
 import '../../StyleSheets/ChatMessage.css';
 
 const ChatMessage = (props) => {

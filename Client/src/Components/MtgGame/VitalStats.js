@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col } from 'react-bootstrap'
-import '../StyleSheets/VitalStats.css';
+import '../../StyleSheets/VitalStats.css';
 
 const VitalStats = function (props) {
     return (
