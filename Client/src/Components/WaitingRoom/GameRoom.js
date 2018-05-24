@@ -1,5 +1,4 @@
 import React from 'react';
-import { Layout, Fixed, Flex } from 'react-layout-pane';
 import { Col } from 'react-bootstrap'
 import ListPlayer from './ListPlayer';
 import '../../StyleSheets/GameRoom.css';
@@ -7,32 +6,24 @@ import '../../StyleSheets/GameRoom.css';
 const GameRoom = (props) => {
 
     return (
-        <Layout type="column">.
-            <Fixed className="header">
-                {props.Game.Name}
-            </Fixed>
-            <Flex className="content">
-                <Layout type="column">
-                    <Flex className="content">
-                        <Col className="edgeless Left-content pendingGameFormat" xs={6} sm={6} md={6} lg={6}>{props.Game.Format}</Col>
-                        <Col className="edgeless Right-content pendingGameLife" xs={6} sm={6} md={6} lg={6}>Life: {props.Game.BaseHitpoints}</Col>
-                    </Flex>
-                    <Fixed className="sidebar">
-                        {props.Game.Players.map((player) => (
-                            <ListPlayer Player={player} />
-                        ))}
-                    </Fixed>
-                </Layout>
-            </Flex>
-            <Fixed className="footer">
-                <Col className="edgeless" xs={6} sm={6} md={6} lg={6}>
-                    <button className="gameRoomLeaveButton" onClick={props.onLeaveGame}>Leave Game</button>
+        <Col className="gameRoom" xs={12} sm={12} md={12} lg={12}>
+            <Col className="gameRoomDetails" xs={9} sm={9} md={9} lg={9}>
+                <Col className="center-content gameRoomButtonContainer" xs={6} sm={6} md={6} lg={6}>
+                    <button className="gameRoomButton" onClick={props.onLeaveGame}>Leave Game</button>
                 </Col>
-                <Col className="edgeless" xs={6} sm={6} md={6} lg={6}>
-                    <button className="gameRoomReadyButton" onClick={props.onReadyGame}>Ready</button>
+                <Col className="center-content gameRoomButtonContainer" xs={6} sm={6} md={6} lg={6}>
+                    <button className="gameRoomButton" onClick={props.onReadyGame}>Ready</button>
                 </Col>
-            </Fixed>
-        </Layout>
+                <Col className="center-content gameRoomText" xs={4} sm={4} md={4} lg={4}>Current Game: {props.Game.Name}</Col>
+                <Col className="center-content gameRoomText" xs={4} sm={4} md={4} lg={4}>Legality Format: {props.Game.Format}</Col>
+                <Col className="center-content gameRoomText" xs={4} sm={4} md={4} lg={4}>Starting Life: {props.Game.BaseHitpoints}</Col>
+            </Col>
+            <Col className="gameRoomPlayerList" xs={3} sm={3} md={3} lg={3}>
+                {props.Game.Players && props.Game.Players.map((player) => (
+                    <ListPlayer Player={player} />
+                ))}
+            </Col>
+        </Col>
     );
 }
 export default GameRoom;

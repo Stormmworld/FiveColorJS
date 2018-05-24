@@ -12,7 +12,8 @@ class App extends Component {
     this.state = {
       Player: {},
       MyGame: {},
-      socket: openSocket('http://localhost:5001'),
+      socket: openSocket('https://72.49.137.37:5001'),
+      // socket: openSocket('http://localhost:5001'),
       ChatMessages: [],
       ChatPlayers: [],
       PendingGames: [],
@@ -33,13 +34,13 @@ class App extends Component {
       this.state.socket.emit('AddChatPlayer', player);
     });
     this.state.socket.on('pendingGames', games => {
-      alert('pending games' + games);
       if (games && games.length > 0)
         for (var i = 0; i < games.length; i++)
           if (games[i] && games[i].Players && games[i].Players.length > 0)
             for (var j = 0; j < games[i].Players.length; j++)
               if (games[i].Players[j].Id == this.state.Player.Id) {
                 this.setState({ MyGame: games[i] });
+                //alert('pending games' + games[i]);
                 j = games[i].Players.length;
                 i = games.length;
                 break;
@@ -71,26 +72,24 @@ class App extends Component {
   onCreateGame(name, format, playerCount, baseHitpoints) {
     this.state.socket.emit('CreateGame', { Name: name, Format: format, PlayerCount: playerCount, BaseHitpoints: baseHitpoints, PlayerId: this.state.Player.Id });
   }
-
-  onSendMessage(message) {
-    this.state.socket.emit('sendMessage', { Message: message, PlayerId: this.state.Player.Id });
-  }
-
-  onJoinGame(gameId) {
-    this.state.socket.emit('JoinGame', { GameId: gameId, PlayerId: this.state.Player.Id });
-  }
-  onLeaveGame(gameId) {
-    this.state.socket.emit('leaveGame', gameId);
-  }
-  onStartGame(gameId) {
-    this.state.socket.emit('StartGame', gameId);
-  }
   onCreatePlayer(displayName, firstName, lastName) {
     this.state.socket.emit('onCreatePlayer', { DisplayName: displayName, FirstName: firstName, LastName: lastName });
     this.onCreatePlayerClosed();
   }
   onCreatePlayerClosed() {
     this.setState({ showCreatePlayer: false });
+  }
+  onJoinGame(gameId) {
+    this.state.socket.emit('JoinGame', { GameId: gameId, PlayerId: this.state.Player.Id });
+  }
+  onLeaveGame(gameId) {
+    this.state.socket.emit('leaveGame',  { GameId: gameId, PlayerId: this.state.Player.Id });
+  }
+  onReadyGame(gameId) {
+    this.state.socket.emit('StartGame',  { GameId: gameId, PlayerId: this.state.Player.Id });
+  }
+  onSendMessage(message) {
+    this.state.socket.emit('sendMessage', { Message: message, PlayerId: this.state.Player.Id });
   }
 
   render() {
@@ -106,7 +105,7 @@ class App extends Component {
             PendingGames={this.state.PendingGames}
             MyGame = {this.state.MyGame}
             onJoinGame={this.onJoinGame.bind(this)}
-            onStartGame={this.onStartGame.bind(this)}
+            onReadyGame={this.onReadyGame.bind(this)}
             onLeaveGame={this.onLeaveGame.bind(this)} />}
         <CreatePlayerModal
           show={this.state.showCreatePlayer}

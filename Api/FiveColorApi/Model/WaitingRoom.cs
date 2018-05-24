@@ -46,7 +46,7 @@ namespace FiveColorApi.Model
         public void AddMessage(int playerId, string message) {
             PlayerDetails player = Players.FirstOrDefault(o => o.Id == playerId);
             if (player != null)
-                Messages.Add(new ChatMessage() { Message=message, PlayerName=player.DisplayName, Timestamp=DateTime.Now.ToString("MM/dd hh:mm") });
+                Messages.Add(new ChatMessage() { Message=message, PlayerName=player.DisplayName, Timestamp=DateTime.Now.ToString("hh:mm"), CreateDate=DateTime.Now });
         }
         public void AddPlayer(AddChatPlayerRequest request)
         {
@@ -89,6 +89,10 @@ namespace FiveColorApi.Model
                     joinGame.Players.Add(new GamePlayer(player));
             }
         }
+        public void purgeOldMessages()
+        {
+            Messages.RemoveAll(o=>o.CreateDate < DateTime.Now.AddMinutes(-30));
+        }
         public void RemovePlayer(string socketId)
         {
             Players.RemoveAll(o => o.SocketId == socketId);
@@ -98,6 +102,7 @@ namespace FiveColorApi.Model
         }
         public void SaveWaitingRoom()
         {
+            purgeOldMessages();
             MemoryCacher.Replace(WaitingRoomKey, this, DateTimeOffset.UtcNow.AddHours(1));
         }
         public void UpdatePlayer(UpdatePlayerRequest request)

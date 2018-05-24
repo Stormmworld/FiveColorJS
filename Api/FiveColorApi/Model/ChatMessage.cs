@@ -10,5 +10,7 @@ namespace FiveColorApi.Model
         public string PlayerName { get; set; }
         [JsonProperty(PropertyName = "Timestamp")]
         public string Timestamp { get; set; }
+        [JsonProperty(PropertyName = "CreateDate")]
+        public System.DateTime CreateDate { get; set; }
     }
 }

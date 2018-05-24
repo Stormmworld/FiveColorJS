@@ -1,11 +1,13 @@
 const fetch = require('node-fetch');
 const io = require('socket.io')()
+const apiPath = "http://localhost:5002";
+//const apiPath = "http://localhost/FiveColorApi";
 
 io.on('connection', function (socket) {
   //socket.on('disconnect', function (playerId) {
   socket.on('disconnect', function () {
     //console.log('removing player id: ' + socket.id);
-    fetch("http://localhost:5002/api/WaitingRoom/RemovePlayer?socketId=" + socket.id)
+    fetch(apiPath + "/api/WaitingRoom/RemovePlayer?socketId=" + socket.id)
       .then((resp) => resp.json())
       .then(function (data) {
         //console.log('remaining players' + data.Players);
@@ -17,7 +19,7 @@ io.on('connection', function (socket) {
 
   socket.on('LogIn', function (playerName) {
     //console.log(playerName);
-    fetch("http://localhost:5002/api/Player/GetPlayer?Name=" + playerName + "&SocketId=" + socket.id)
+    fetch(apiPath + "/api/Player/GetPlayer?Name=" + playerName + "&SocketId=" + socket.id)
       .then((resp) => resp.json())
       .then(function (data) {
         if (data.Success === false) {
@@ -62,7 +64,7 @@ io.on('connection', function (socket) {
   })
 
   socket.on('onCreatePlayer', function (newPlayer) {
-    fetch("http://localhost:5002/api/Player/CreatePlayer?DisplayName=" + newPlayer.DisplayName + "&FirstName=" + newPlayer.FirstName + "&LastName=" + newPlayer.LastName)
+    fetch(apiPath + "/api/Player/CreatePlayer?DisplayName=" + newPlayer.DisplayName + "&FirstName=" + newPlayer.FirstName + "&LastName=" + newPlayer.LastName)
       .then((resp) => resp.json())
       .then(function (data) {
         console.log(data);
@@ -73,14 +75,14 @@ io.on('connection', function (socket) {
 
   socket.on('JoinGame', function (request) {
     //console.log('Join Game ' + request);
-    fetch("http://localhost:5002/api/WaitingRoom/JoinGame?GameId=" + request.GameId + "&PlayerId=" + request.PlayerId)
+    fetch(apiPath + "/api/WaitingRoom/JoinGame?GameId=" + request.GameId + "&PlayerId=" + request.PlayerId)
       .then((resp) => resp.json())
       .then(function (data) { io.emit('pendingGames', data.Games); })
       .catch(function (e) { console.log('error joining game' + e); });;
   })
 
   socket.on('LeaveGame', function (playerId) {
-    fetch("http://localhost:5002/api/WaitingRoom/LeaveCurrentGame?playerId=" + playerId)
+    fetch(apiPath + "/api/WaitingRoom/LeaveCurrentGame?playerId=" + playerId)
       .then((resp) => resp.json())
       .then(function (data) { io.emit('pendingGames', data.Games); })
       .catch(function (e) { console.log('error leaving game' + e); });;
@@ -92,7 +94,7 @@ io.on('connection', function (socket) {
   })
 
   socket.on('sendMessage', function (request) {
-    fetch("http://localhost:5002/api/WaitingRoom/AddMessage?Message=" + request.Message + "&PlayerId=" + request.PlayerId)
+    fetch(apiPath + "/api/WaitingRoom/AddMessage?Message=" + request.Message + "&PlayerId=" + request.PlayerId)
       .then((resp) => resp.json())
       .then(function (data) {
         //console.log('Messages: ' + JSON.stringify(data));

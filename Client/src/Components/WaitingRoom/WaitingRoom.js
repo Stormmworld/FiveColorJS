@@ -37,18 +37,18 @@ class WaitingRoom extends Component {
                 <Flex className="content">
                     <Layout type="row">
                         <Flex className="content">
-                            <Layout type="column ">
+                            <Layout type="column">
                                 <Flex className="content messageWindowContainer">
                                     <Chat PlayerName={this.props.Player.DisplayName} sendMessage={this.props.onSendMessage} ChatMessages={this.props.ChatMessages} />
                                 </Flex>
-                                <Fixed className="footer">
-                                    {this.props.MyGame && this.props.MyGame.Id &&
-                                        <GameRoom
-                                            Game={this.props.MyGame}
-                                            onReadyGame={this.props.onReadyGame}
-                                            onLeaveGame={this.props.onLeaveGame}
-                                            Player={this.props.Player} />}
-                                </Fixed>
+                                {this.props.MyGame && this.props.MyGame.Id &&
+                                <Fixed className="footer waitingRoomGameRoom" >
+                                    <GameRoom 
+                                        Game={this.props.MyGame}
+                                        onReadyGame={this.props.onReadyGame}
+                                        onLeaveGame={this.props.onLeaveGame}
+                                        Player={this.props.Player} />
+                                </Fixed>}
                             </Layout>
                         </Flex>
                         <Fixed className="sidebar waitingRoomSidebar ">
