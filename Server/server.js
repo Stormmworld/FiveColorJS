@@ -1,7 +1,8 @@
 const fetch = require('node-fetch');
 const io = require('socket.io')()
-const apiPath = "http://localhost:5002";
+//const apiPath = "http://localhost:5002";
 //const apiPath = "http://localhost/FiveColorApi";
+const apiPath = "http://fivecolor.servehttp.com/FiveColorApi";
 
 io.on('connection', function (socket) {
   //socket.on('disconnect', function (playerId) {

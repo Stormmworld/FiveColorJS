@@ -14,7 +14,7 @@ class App extends Component {
       MyGame: {},
       AvailableDecks: [],
       //socket: openSocket('https://72.49.137.37:5001'),
-      socket: openSocket('http://localhost:5001'),
+      socket: openSocket('https://localhost:5001'),
       ChatMessages: [],
       ChatPlayers: [],
       PendingGames: [],
