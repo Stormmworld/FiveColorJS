@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CreatePlayerModal from './CreatePlayerModal';
 import WaitingRoom from './WaitingRoom/WaitingRoom';
 import Playfield from './MtgGame/Playfield';
+import DeckBuilder from './DeckBuilder/DeckBuilder';
 import '../StyleSheets/App.css';
 import openSocket from 'socket.io-client';
 
@@ -13,12 +14,13 @@ class App extends Component {
       Player: {},
       MyGame: {},
       AvailableDecks: [],
-      //socket: openSocket('https://72.49.137.37:5001'),
-      socket: openSocket('https://localhost:5001'),
+      socket: openSocket('https://72.49.137.37:5001'),
+      //socket: openSocket('https://localhost:5001'),
       ChatMessages: [],
       ChatPlayers: [],
       PendingGames: [],
       showCreatePlayer: false,
+      showDeckBuilder: false,
       CreatePlayerName: ''
     }
 
@@ -80,7 +82,7 @@ class App extends Component {
     this.state.socket.emit('LeaveGame', this.state.Player.Id);
   }
   onReadyGame(gameId) {
-    this.state.socket.emit('ReadyGame', { GameId: gameId, PlayerId: this.state.Player.Id, Ready:!this.state.Player.IsReady });
+    this.state.socket.emit('ReadyGame', { GameId: gameId, PlayerId: this.state.Player.Id, Ready: !this.state.Player.IsReady });
   }
   onSendMessage(message) {
     this.state.socket.emit('sendMessage', { Message: message, PlayerId: this.state.Player.Id });
@@ -89,10 +91,16 @@ class App extends Component {
   render() {
     return (
       <div className="container-fluid" >
-        {this.state.Player.Id > 0 && !this.state.Player.GameStarted &&
+        {this.state.showDeckBuilder &&
+          <DeckBuilder
+            onSaveDeck={}
+            onDeckBuilderClosed={}
+          />
+        }
+        {!this.state.showDeckBuilder && this.state.Player.Id > 0 && !this.state.Player.GameStarted &&
           <WaitingRoom
             Player={this.state.Player}
-            AvailableDecks ={this.state.AvailableDecks}
+            AvailableDecks={this.state.AvailableDecks}
             onSendMessage={this.onSendMessage.bind(this)}
             ChatMessages={this.state.ChatMessages}
             ChatPlayers={this.state.ChatPlayers}
@@ -103,8 +111,8 @@ class App extends Component {
             onReadyGame={this.onReadyGame.bind(this)}
             onLeaveGame={this.onLeaveGame.bind(this)} />}
         {this.state.Player.Id > 0 && this.state.Player.GameStarted &&
-            <Playfield 
-            />
+          <Playfield
+          />
         }
         <CreatePlayerModal
           show={this.state.showCreatePlayer}
