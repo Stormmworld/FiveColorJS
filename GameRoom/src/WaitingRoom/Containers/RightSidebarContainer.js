@@ -1,9 +1,11 @@
 import WaitingRoom from '../Components/WaitingRoom'
-import {connect} from 'react-redux'
-import {  } from '../../WaitingRoom/Actions/waitingRoomActions';
+import { connect } from 'react-redux'
+import { showCreateGame } from '../../WaitingRoom/Actions/waitingRoomActions';
 
 const mapStateToProps = state => {
     return {
+        PendingGames: state.PendingGames,
+        ChatPlayers: state.ChatPlayers,
     };
 };
 

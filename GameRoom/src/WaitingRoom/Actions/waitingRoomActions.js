@@ -4,7 +4,7 @@ import axios from "axios"
 //Outbound Socket Calls
 export const createGame = (socket, game) => {
     return (dispatch) => {
-        socket.emit('sendMessage', game)
+        socket.emit('CreateGame', game)
     }
 }
 
@@ -19,5 +19,10 @@ export const initializeWaitingRoomSocket = (socket) => {
 
 export const receivePendingGames = (games) => ({
 	type: RECEIVE_PENDING_GAMES,
-	Messages: games
+	PendingGames: games
+})
+
+export const showCreateGame = (showCreateGameModal) => ({
+	type: SHOW_CREATE_GAME_MODAL,
+	ShowCreateGameModal: showCreateGameModal
 })

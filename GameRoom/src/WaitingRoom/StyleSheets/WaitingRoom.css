@@ -1,0 +1,47 @@
+.waitingRoomContainer{
+    background-color: beige;
+}
+
+.pendingGamesContainer{
+    background-color: darkslategrey;
+    color: whitesmoke;
+}
+.pendingGamesHeader{
+    background-color: black;
+    color: whitesmoke;
+}
+.chatHeader{
+    background-color: black;
+    color: whitesmoke;
+}
+
+.lobbyContainer{
+    background-color: darkslategrey;
+    color: whitesmoke;
+}
+
+.waitingRoomFooter{
+    background-color: black;
+    color: whitesmoke;
+    height: 5px
+}
+
+.messageWindowContainer{
+    text-align: left;
+    background-color: blanchedalmond;
+    margin-left:15px;
+    border: 5px;
+    border-color:black;
+    border-style: solid;
+}
+
+.waitingRoomSidebar{
+    max-width: 375px;
+    min-width: 375px;
+    margin-right:15px;
+}
+
+.waitingRoomGameRoom{
+    margin-left:15px;
+    height: 150px;
+}
