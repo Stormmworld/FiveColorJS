@@ -1,0 +1,36 @@
+
+.chatMessagebox{
+    height: 40px;
+    font-size: 20px;
+    width: 100%;
+    margin-left:15px;
+}
+
+.chatSubmitButton{    
+    font-size: 20px;
+    border: 2px;
+    border-color: black;
+    color: white;
+    background-color: blue;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 20%;
+    height: 40px;
+    width: 100%;
+}
+
+.chatHeader{
+    height: 35px;
+    background-color: black;
+    color: whitesmoke;
+}
+
+.chatFooter{
+    height: 45px;
+}
+
+.chatMessageboxContainer{
+    margin-top: 4px;
+    margin-bottom: 2px;
+}
