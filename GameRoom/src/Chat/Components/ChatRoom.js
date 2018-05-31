@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap'
 import { Layout, Fixed, Flex } from 'react-layout-pane';
-import ChatMessageWindow from './ChatMessageWindow.js';
+import ChatMessageWindow from '../Containers/ChatMessageWindowContainer.js';
 import '../StyleSheets/ChatRoom.css';
 
 class ChatRoom extends Component {
@@ -16,7 +16,7 @@ class ChatRoom extends Component {
         return (
             <Layout type="column">
                 <Fixed className="header chatHeader center-content name-container">
-                    Signed in as {this.props.PlayerName}
+                    Signed in as {this.props.PlayerData.DisplayName}
                 </Fixed>
                 <Flex className="content scrollable">
                     <ChatMessageWindow />
@@ -30,7 +30,8 @@ class ChatRoom extends Component {
                             onChange={e => this.setState({ Message: e.target.value })}
                             onKeyUp={(event) => { 
                                 if (event.keyCode === 13) {
-                                    this.props.sendMessage(this.state.Message);
+                                    this.props.sendMessage(window.gameSocket, this.props.PlayerData.Id ,this.state.Message);
+                                    this.setState({Message: ''});
                                 }
                             }}
                         />

@@ -13,22 +13,24 @@ export const sendMessage = (socket, playerId, message) => {
 }
 
 export const initializeChatSocket = (socket) => {
-    alert('initializing chat room socket events');
-	return (dispatch) => {
+    //alert('initializing chat room socket events');
+    return (dispatch) => {
         socket.on('messages', messages => {
+            //console.log('messages Recieved' + JSON.stringify(messages));
             dispatch(receiveMessages(messages))
-          });
-          socket.on('chatPlayers', players => {
+        });
+        socket.on('chatPlayers', players => {
+            //console.log('chatPlayers Recieved');
             dispatch(receiveMessages(players))
-          });
-	}	
+        });
+    }
 }
 
 export const receiveMessages = (messages) => ({
-	type: RECEIVE_MESSAGES,
-	Messages: messages
+    type: RECEIVE_MESSAGES,
+    Messages: messages
 })
 export const chatPlayers = (players) => ({
-	type: RECEIVE_CHAT_PLAYERS,
-	Messages: players
+    type: RECEIVE_CHAT_PLAYERS,
+    ChatPlayers: players
 })

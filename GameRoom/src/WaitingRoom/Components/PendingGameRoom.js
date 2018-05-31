@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col } from 'react-bootstrap'
 import ListPlayer from './ListPlayer';
-import '../../StyleSheets/GameRoom.css';
+import '../StyleSheets/PendingGameRoom.css';
 
 const PendingGameRoom = (props) => {
     return (

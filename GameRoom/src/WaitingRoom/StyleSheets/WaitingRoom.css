@@ -29,7 +29,7 @@
 .messageWindowContainer{
     text-align: left;
     background-color: blanchedalmond;
-    margin-left:15px;
+    /* margin-left:15px; */
     border: 5px;
     border-color:black;
     border-style: solid;
@@ -38,10 +38,10 @@
 .waitingRoomSidebar{
     max-width: 375px;
     min-width: 375px;
-    margin-right:15px;
+    /* margin-right:15px; */
 }
 
 .waitingRoomGameRoom{
-    margin-left:15px;
+    /* margin-left:15px; */
     height: 150px;
 }

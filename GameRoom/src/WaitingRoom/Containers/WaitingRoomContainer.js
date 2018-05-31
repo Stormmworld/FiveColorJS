@@ -4,6 +4,7 @@ import {  } from '../../WaitingRoom/Actions/waitingRoomActions';
 
 const mapStateToProps = state => {
     return {
+        CreateGameModalVisible: state.WaitingRoom.CreateGameModalVisible,
     };
 };
 

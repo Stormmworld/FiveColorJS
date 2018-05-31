@@ -1,4 +1,4 @@
-import { SEND_MESSAGE } from "../constants/action-types";
+import { SEND_MESSAGE, RECEIVE_MESSAGES } from "../constants/action-types";
 
 const initialState = {
     Message: '',
@@ -7,6 +7,8 @@ const initialState = {
 
 const chatReducer = (state = initialState, action) => {
     switch (action.type) {
+        case RECEIVE_MESSAGES:
+            return {...state, Messages: action.Messages} ;
         case SEND_MESSAGE:
             return {...state, Message:'', Messages: action.Payload} ;
         default:

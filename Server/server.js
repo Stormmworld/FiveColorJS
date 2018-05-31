@@ -19,14 +19,17 @@ io.on('connection', function (socket) {
   })
 
   socket.on('LogIn', function (playerName) {
-    console.log(playerName);
+    //console.log(playerName);
     fetch(apiPath + "/api/Player/GetPlayer?Name=" + playerName + "&SocketId=" + socket.id)
       .then((resp) => resp.json())
       .then(function (data) {
         if (data.Success === false) {
           socket.emit('createPlayer', playerName);
         }
-        else { socket.emit('PlayerData', data); }
+        else {
+          //console.log(JSON.stringify(data));
+          socket.emit('PlayerData', data); 
+          }
       })
       .catch(function (e) {
         console.log('error logging in player' + e);

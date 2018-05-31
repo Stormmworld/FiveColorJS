@@ -3,6 +3,7 @@ import { Col } from 'react-bootstrap'
 import '../StyleSheets/ChatMessage.css';
 
 const ChatMessage = (props) => {
+    console.log('render chat message' + JSON.stringify(props.message))
     return (
         <Col className="edgeless chatMessageContainer" xs={12} sm={12} md={12} lg={12}>
         <Col className="chatMessageText chatMessageName center-content" xs={1} sm={1} md={1} lg={1}>

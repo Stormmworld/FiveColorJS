@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import { Layout, Fixed, Flex } from 'react-layout-pane';
-import Chat from '../../Chat/Components/Chat';
+import ChatRoom from '../../Chat/Containers/ChatRoomContainer';
 import PendingGameRoom from './PendingGameRoom';
-import RightSidebarContainer from './RightSidebar';
+import RightSidebar from '../Containers/RightSidebarContainer';
 import CreateGameModal from '../Containers/CreateGameModalContainer';
 import WaitingRoomHeader from './WaitingRoomHeader';
-import '../../StyleSheets/WaitingRoom.css';
+import '../StyleSheets/WaitingRoom.css';
 
 class WaitingRoom extends Component {
-    closeCreateGame() {
-        this.setState({ showCreateGameModal: false });
-    }
 
     onCreateGame(name, format, playerCount, baseHitpoints) {
         this.props.CreateGame(name, format, playerCount, baseHitpoints);
         this.closeCreateGame();
     }
 
-    onCreateGameClicked() {
-        this.setState({ showCreateGameModal: true });
-    }
     render() {
         return (
             <Layout type="column">
@@ -31,7 +25,7 @@ class WaitingRoom extends Component {
                         <Flex className="content">
                             <Layout type="column">
                                 <Flex className="content messageWindowContainer">
-                                    <Chat />
+                                    <ChatRoom />
                                 </Flex>
                                 {this.props.MyGame && this.props.MyGame.Id &&
                                     <Fixed className="footer waitingRoomGameRoom" >
@@ -45,7 +39,7 @@ class WaitingRoom extends Component {
                     </Layout>
                 </Flex>
                 <Fixed className="footer waitingRoomFooter" />
-                <CreateGameModal show={this.state.showCreateGameModal} />
+                <CreateGameModal />
             </Layout >
         );
     }

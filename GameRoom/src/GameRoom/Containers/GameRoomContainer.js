@@ -5,7 +5,11 @@ import { initializeGameRoomSocket, logInPlayer } from '../../GameRoom/Actions/ga
 import { initializeWaitingRoomSocket } from '../../WaitingRoom/Actions/waitingRoomActions';
 
 const mapStateToProps = state => {
+    //console.log('game room mapping state to props ' + JSON.stringify(state));
     return {
+        ShowDeckBuilder: state.GameRoom.ShowDeckBuilder,
+        ShowCreatePlayer: state.GameRoom.ShowCreatePlayer,
+        PlayerData: state.GameRoom.PlayerData,
     };
 };
 

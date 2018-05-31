@@ -1,17 +1,17 @@
 import ChatRoom from '../Components/ChatRoom'
 import {connect} from 'react-redux'
-import { sendMessage } from '../Actions/chatAction'
+import { sendMessage } from '../Actions/chatActions'
 
 const mapStateToProps = state => {
     return {
-        Message: state.Message,
-        PlayerName: state.PlayerName
+        Message: state.Chat.Message,
+        PlayerData: state.GameRoom.PlayerData,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        sendMessage: message => dispatch(sendMessage(message))
+        sendMessage: (socket, playerId, message) => dispatch(sendMessage(socket, playerId, message))
     };
 };
 

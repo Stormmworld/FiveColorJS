@@ -6,7 +6,7 @@ import '../StyleSheets/ChatMessageWindow.css';
 
 const mapStateToProps = state => {
     return {
-        Messages: state.Messages,
+        Messages: state.Chat.Messages,
     };
 };
 

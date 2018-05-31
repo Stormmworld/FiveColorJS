@@ -1,21 +1,21 @@
-import WaitingRoom from '../Components/WaitingRoom'
+import RightSidebar from '../Components/RightSidebar'
 import { connect } from 'react-redux'
 import { showCreateGame } from '../../WaitingRoom/Actions/waitingRoomActions';
 
 const mapStateToProps = state => {
     return {
-        PendingGames: state.PendingGames,
-        ChatPlayers: state.ChatPlayers,
+        PendingGames: state.WaitingRoom.PendingGames,
+        ChatPlayers: state.WaitingRoom.ChatPlayers,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        showCreateGame: (showModal) => { showCreateGame(showModal) }
+        ShowCreateGameModal: (showModal) => { showCreateGame(showModal) }
     };
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(WaitingRoom)
+)(RightSidebar)

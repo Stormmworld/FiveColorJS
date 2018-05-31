@@ -1,4 +1,4 @@
-import WaitingRoom from '../Components/WaitingRoom'
+import CreateGameModal from '../Components/CreateGameModal'
 import { connect } from 'react-redux'
 import { createGame } from '../../WaitingRoom/Actions/waitingRoomActions';
 
@@ -18,4 +18,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(WaitingRoom)
+)(CreateGameModal)
