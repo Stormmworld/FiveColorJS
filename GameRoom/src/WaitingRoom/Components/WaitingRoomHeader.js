@@ -18,6 +18,7 @@ const WaitingRoomHeader = (props) => {
             <Col className="edgeless center-content " xs={1} sm={1} md={1} lg={1}><Mana color='U' /></Col>
             <Col className="edgeless center-content " xs={1} sm={1} md={1} lg={1}><Mana color='G' /></Col>
         </Col>
+        
     );
 }
 export default WaitingRoomHeader;

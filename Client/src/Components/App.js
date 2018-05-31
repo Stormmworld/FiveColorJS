@@ -91,12 +91,12 @@ class App extends Component {
   render() {
     return (
       <div className="container-fluid" >
-        {this.state.showDeckBuilder &&
+        {/* {this.state.showDeckBuilder &&
           <DeckBuilder
             onSaveDeck={}
             onDeckBuilderClosed={}
           />
-        }
+        } */}
         {!this.state.showDeckBuilder && this.state.Player.Id > 0 && !this.state.Player.GameStarted &&
           <WaitingRoom
             Player={this.state.Player}

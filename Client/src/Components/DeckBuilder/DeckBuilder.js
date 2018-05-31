@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap'
+import Card from '../MtgGame/Card'
 import '../../StyleSheets/DeckBuilder.css';
 
 class DeckBuilder extends Component {
